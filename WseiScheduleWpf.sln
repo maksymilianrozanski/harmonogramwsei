@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WseiScheduleWpf", "WseiScheduleWpf\WseiScheduleWpf.csproj", "{87B0EA91-1141-4E28-9A76-EEB6946BEC98}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalendarGenerator", "CalendarGenerator\CalendarGenerator.csproj", "{D80527A5-CD45-423A-8143-40FF6545CB36}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{87B0EA91-1141-4E28-9A76-EEB6946BEC98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87B0EA91-1141-4E28-9A76-EEB6946BEC98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87B0EA91-1141-4E28-9A76-EEB6946BEC98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D80527A5-CD45-423A-8143-40FF6545CB36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D80527A5-CD45-423A-8143-40FF6545CB36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D80527A5-CD45-423A-8143-40FF6545CB36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D80527A5-CD45-423A-8143-40FF6545CB36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
