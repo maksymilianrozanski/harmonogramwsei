@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WseiScheduleWpf", "WseiSche
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalendarGenerator", "CalendarGenerator\CalendarGenerator.csproj", "{D80527A5-CD45-423A-8143-40FF6545CB36}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleCalGenerator", "ConsoleCalGenerator\ConsoleCalGenerator.csproj", "{1E5BF441-4FD9-48C5-95BD-AF35CFC9E040}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{D80527A5-CD45-423A-8143-40FF6545CB36}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D80527A5-CD45-423A-8143-40FF6545CB36}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D80527A5-CD45-423A-8143-40FF6545CB36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E5BF441-4FD9-48C5-95BD-AF35CFC9E040}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E5BF441-4FD9-48C5-95BD-AF35CFC9E040}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E5BF441-4FD9-48C5-95BD-AF35CFC9E040}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E5BF441-4FD9-48C5-95BD-AF35CFC9E040}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
