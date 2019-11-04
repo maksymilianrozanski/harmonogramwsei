@@ -2,6 +2,6 @@ namespace CalendarGenerator
 {
     public interface ICalGenerator
     {
-        string GenerateICalCalendar(string copiedText);
+        string GenerateICalCalendar(string pdfFilePath);
     }
 }
