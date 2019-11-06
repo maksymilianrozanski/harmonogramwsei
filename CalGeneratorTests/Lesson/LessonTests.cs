@@ -13,5 +13,17 @@ namespace CalGeneratorTests.Lesson
             var result = LessonText.ExtractDate(input);
             Assert.AreEqual(expected, result);
         }
+
+        [Test]
+        public void ExtractLessonHoursTest()
+        {
+            var input =
+                "9:40 11:10 2h00m mgr inż. Thomas Orange Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
+            var expectedStart = "9:40";
+            var expectedEnd = "11:10";
+            LessonText.ExtractHours(input, out var startResult, out var endResult);
+            Assert.AreEqual(expectedStart, startResult);
+            Assert.AreEqual(expectedEnd, endResult);
+        }
     }
 }

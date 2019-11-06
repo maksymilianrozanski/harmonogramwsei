@@ -20,5 +20,12 @@ namespace CalendarGenerator.Lesson
             Match match = regex.Match(input);
             return match.Value;
         }
+
+        public static void ExtractHours(string lessonString, out string start, out string end)
+        {
+            var wordArray = lessonString.Split(" ");
+            start = wordArray[0];
+            end = wordArray[1];
+        }
     }
 }
