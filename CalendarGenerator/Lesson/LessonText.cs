@@ -36,8 +36,8 @@ namespace CalendarGenerator.Lesson
             var matchIndex = lessonString.IndexOf(title, StringComparison.Ordinal);
             int endOfTitle = matchIndex + title.Length;
             var titleCutOff = lessonString.Substring(endOfTitle);
-            //TODO: implement double surname recognizing
-            var lecturerPattern = "[a-zA-Z]+ [a-zA-Z]+";
+            var lecturerPattern =
+                "([a-zA-Z]+ [a-zA-Z]+\\-[a-zA-Z]+)|([a-zA-Z]+ [a-zA-Z]+ \\- [a-zA-Z]+)|([a-zA-Z]+ [a-zA-Z]+)";
             Regex nameRegex = new Regex(lecturerPattern);
             Match nameMatch = nameRegex.Match(titleCutOff);
             return title + " " + nameMatch.Value;
