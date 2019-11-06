@@ -43,6 +43,19 @@ namespace CalendarGenerator.PdfParse
             dayItems.Add(stringBuilder.ToString().Trim());
             return dayItems;
         }
+        
+        internal static List<Day> DayStringsToDayItems(List<string> dayStringItems)
+        {
+            List<Day> days = new List<Day>();
+            dayStringItems.ForEach(dayStringItem =>
+            {
+                var date = ExtractDateFromDayStringItem(dayStringItem);
+                var lessons = ExtractLessonStringsFromDayStringItem(dayStringItem);
+                var day = new Day (date, lessons);
+                days.Add(day);
+            });
+            return days;
+        }
 
         internal static string ExtractDateFromDayStringItem(string dayStringItem)
         {
