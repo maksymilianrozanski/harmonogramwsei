@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -53,6 +54,25 @@ namespace CalendarGenerator.PdfParse
             if (match.Index != 0) throw new ParsingException(ParsingException.IndexOfMatchedItemNotZero);
             indexAfterMatch = match.Length;
             return dayStringItem.Substring(0, indexAfterMatch);
+        }
+
+        internal static List<string> ExtractLessonStringsFromDayStringItem(string dayStringItem)
+        {
+            var lessons = new List<string>();
+
+            const string startPattern = "\\d?\\d:\\d\\d \\d?\\d:\\d\\d";
+            Regex regex = new Regex(startPattern);
+            MatchCollection matches = regex.Matches(dayStringItem);
+
+            for (int i = 0; i < matches.Count - 1; i++)
+            {
+                var start = matches[i].Index;
+                var length = matches[i].NextMatch().Index - start;
+                lessons.Add(dayStringItem.Substring(start, length));
+            }
+
+            lessons.Add(dayStringItem.Substring(matches[^1].Index));
+            return lessons;
         }
     }
 

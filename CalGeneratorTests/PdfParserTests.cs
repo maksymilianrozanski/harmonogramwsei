@@ -68,5 +68,30 @@ namespace CalGeneratorTests
             });
             Assert.That(exception.Message, Is.EqualTo(ParsingException.IndexOfMatchedItemNotZero));
         }
+
+        [Test]
+        public void ExtractLessonStringsFromDayStringItemsTest()
+        {
+            var dayStringItem =
+                "Data Zajęć: 2019-10-06 niedziela 8:00 9:30 2h00m mgr Jack Green Wzorce projektowe Lab lab/WebN F Montreal Zaliczenie ocena " +
+                "9:40 11:10 2h00m mgr inż. Thomas Orange Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena " +
+                "14:40 16:10 2h00m dr George White Geology Lab lab51/22/WebN F San Francisco Zaliczenie ocena " +
+                "16:20 17:50 2h00m mgr Richard White Basic Mathematics Lab lab22/22/WebN F Chicago Zaliczenie ocena " +
+                "18:00 19:30 2h00m mgr David Smith Civil Engineering Lab lab3/3/WebN F Nowy Jork Zaliczenie ocena " +
+                "19:40 21:10 2h00m mgr Jacob Brown Advanced Mathematics Konw konw/2/WebN F Toronto Zaliczenie ocena";
+
+            var expected = new List<string>
+            {
+                "8:00 9:30 2h00m mgr Jack Green Wzorce projektowe Lab lab/WebN F Montreal Zaliczenie ocena ",
+                "9:40 11:10 2h00m mgr inż. Thomas Orange Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ",
+                "14:40 16:10 2h00m dr George White Geology Lab lab51/22/WebN F San Francisco Zaliczenie ocena ",
+                "16:20 17:50 2h00m mgr Richard White Basic Mathematics Lab lab22/22/WebN F Chicago Zaliczenie ocena ",
+                "18:00 19:30 2h00m mgr David Smith Civil Engineering Lab lab3/3/WebN F Nowy Jork Zaliczenie ocena ",
+                "19:40 21:10 2h00m mgr Jacob Brown Advanced Mathematics Konw konw/2/WebN F Toronto Zaliczenie ocena"
+            };
+
+            var result = PdfParser.ExtractLessonStringsFromDayStringItem(dayStringItem);
+            Assert.AreEqual(expected, result);
+        }
     }
 }
