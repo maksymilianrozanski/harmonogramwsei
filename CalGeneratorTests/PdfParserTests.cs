@@ -54,7 +54,7 @@ namespace CalGeneratorTests
             {
                 PdfParser.ExtractDateFromDayStringItem(dayStringItem, out var index);
             });
-            Assert.That(exception.Message, Is.EqualTo("Matching date not successful"));
+            Assert.That(exception.Message, Is.EqualTo(ParsingException.MatchingDateFailed));
         }
 
         [Test]
@@ -66,7 +66,7 @@ namespace CalGeneratorTests
             {
                 PdfParser.ExtractDateFromDayStringItem(dayStringItem, out var index);
             });
-            Assert.That(exception.Message, Is.EqualTo("Index of matched item not equals to 0"));
+            Assert.That(exception.Message, Is.EqualTo(ParsingException.IndexOfMatchedItemNotZero));
         }
     }
 }

@@ -45,11 +45,12 @@ namespace CalendarGenerator.PdfParse
 
         internal static string ExtractDateFromDayStringItem(string dayStringItem, out int indexAfterMatch)
         {
-            const string datePattern = "Data Zajęć: \\d\\d\\d\\d-\\d\\d-\\d\\d \\b(poniedziałek|wtorek|środa|czwartek|piątek|sobota|niedziela)\\b";
+            const string datePattern =
+                "Data Zajęć: \\d\\d\\d\\d-\\d\\d-\\d\\d \\b(poniedziałek|wtorek|środa|czwartek|piątek|sobota|niedziela)\\b";
             Regex regex = new Regex(datePattern);
             Match match = regex.Match(dayStringItem);
-            if (match.Success == false) throw new ParsingException("Matching date not successful");
-            if (match.Index != 0) throw new ParsingException("Index of matched item not equals to 0");
+            if (match.Success == false) throw new ParsingException(ParsingException.MatchingDateFailed);
+            if (match.Index != 0) throw new ParsingException(ParsingException.IndexOfMatchedItemNotZero);
             indexAfterMatch = match.Length;
             return dayStringItem.Substring(0, indexAfterMatch);
         }
@@ -57,6 +58,9 @@ namespace CalendarGenerator.PdfParse
 
     internal class ParsingException : Exception
     {
+        internal const string MatchingDateFailed = "Matching date not successful";
+        internal const string IndexOfMatchedItemNotZero = "Index of matched item not equals to 0";
+
         public ParsingException(string message) : base(message)
         {
         }
