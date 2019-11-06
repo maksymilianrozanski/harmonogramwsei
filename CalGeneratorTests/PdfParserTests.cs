@@ -40,9 +40,8 @@ namespace CalGeneratorTests
         {
             var dayStringItem =
                 "Data Zajęć: 2019-10-04 piątek 17:30 19:00 2h00m dr Name Surname Advanced Math Wyk W/1/Web F Toronto Egzamin 19:15 20:45 2h00m doc. dr John Smiths Modern History of Poland Wyk W/1/Web F Praga Egzamin";
-            var result = PdfParser.ExtractDateFromDayStringItem(dayStringItem, out var indexAfterMatch);
+            var result = PdfParser.ExtractDateFromDayStringItem(dayStringItem);
             Assert.AreEqual("Data Zajęć: 2019-10-04 piątek", result);
-            Assert.AreEqual(29, indexAfterMatch);
         }
 
         [Test]
@@ -52,7 +51,7 @@ namespace CalGeneratorTests
                 "Da_ta Zajęć: 2019-10-04 piątek 17:30 19:00 2h00m dr Name Surname Advanced Math Wyk W/1/Web F Toronto Egzamin 19:15 20:45 2h00m doc. dr John Smiths Modern History of Poland Wyk W/1/Web F Praga Egzamin";
             var exception = Assert.Throws<ParsingException>(() =>
             {
-                PdfParser.ExtractDateFromDayStringItem(dayStringItem, out var index);
+                PdfParser.ExtractDateFromDayStringItem(dayStringItem);
             });
             Assert.That(exception.Message, Is.EqualTo(ParsingException.MatchingDateFailed));
         }
@@ -64,7 +63,7 @@ namespace CalGeneratorTests
                 "    Data Zajęć: 2019-10-04 piątek 17:30 19:00 2h00m dr Name Surname Advanced Math Wyk W/1/Web F Toronto Egzamin 19:15 20:45 2h00m doc. dr John Smiths Modern History of Poland Wyk W/1/Web F Praga Egzamin";
             var exception = Assert.Throws<ParsingException>(() =>
             {
-                PdfParser.ExtractDateFromDayStringItem(dayStringItem, out var index);
+                PdfParser.ExtractDateFromDayStringItem(dayStringItem);
             });
             Assert.That(exception.Message, Is.EqualTo(ParsingException.IndexOfMatchedItemNotZero));
         }
