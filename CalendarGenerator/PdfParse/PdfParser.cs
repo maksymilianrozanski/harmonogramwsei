@@ -17,7 +17,7 @@ namespace CalendarGenerator.PdfParse
             return removedBreakLines.Split(" ");
         }
 
-        internal static List<string> WordsToDayItems(string[] words)
+        internal static List<string> WordsToStringDayItems(string[] words)
         {
             var stringBuilder = new StringBuilder();
             var dayItems = new List<string>();
