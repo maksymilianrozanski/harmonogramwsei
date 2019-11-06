@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -40,6 +41,24 @@ namespace CalendarGenerator.PdfParse
 
             dayItems.Add(stringBuilder.ToString().Trim());
             return dayItems;
+        }
+
+        internal static string ExtractDateFromDayStringItem(string dayStringItem, out int indexAfterMatch)
+        {
+            const string datePattern = "Data Zajęć: \\d\\d\\d\\d-\\d\\d-\\d\\d \\b(poniedziałek|wtorek|środa|czwartek|piątek|sobota|niedziela)\\b";
+            Regex regex = new Regex(datePattern);
+            Match match = regex.Match(dayStringItem);
+            if (match.Success == false) throw new ParsingException("Matching date not successful");
+            if (match.Index != 0) throw new ParsingException("Index of matched item not equals to 0");
+            indexAfterMatch = match.Length;
+            return dayStringItem.Substring(0, indexAfterMatch);
+        }
+    }
+
+    internal class ParsingException : Exception
+    {
+        public ParsingException(string message) : base(message)
+        {
         }
     }
 }

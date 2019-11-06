@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using CalendarGenerator.PdfParse;
 using NUnit.Framework;
 
@@ -32,6 +33,40 @@ namespace CalGeneratorTests
                     .Split(" ");
             var result = PdfParser.WordsToDayItems(wordsInput);
             Assert.AreEqual(expectedOutput, result);
+        }
+
+        [Test]
+        public void ExtractDateFromDayStringItemSuccessTest()
+        {
+            var dayStringItem =
+                "Data Zajęć: 2019-10-04 piątek 17:30 19:00 2h00m dr Name Surname Advanced Math Wyk W/1/Web F Toronto Egzamin 19:15 20:45 2h00m doc. dr John Smiths Modern History of Poland Wyk W/1/Web F Praga Egzamin";
+            var result = PdfParser.ExtractDateFromDayStringItem(dayStringItem, out var indexAfterMatch);
+            Assert.AreEqual("Data Zajęć: 2019-10-04 piątek", result);
+            Assert.AreEqual(29, indexAfterMatch);
+        }
+
+        [Test]
+        public void ExtractDateFromStringItemNotSuccessfulTest1()
+        {
+            var dayStringItem =
+                "Da_ta Zajęć: 2019-10-04 piątek 17:30 19:00 2h00m dr Name Surname Advanced Math Wyk W/1/Web F Toronto Egzamin 19:15 20:45 2h00m doc. dr John Smiths Modern History of Poland Wyk W/1/Web F Praga Egzamin";
+            var exception = Assert.Throws<ParsingException>(() =>
+            {
+                PdfParser.ExtractDateFromDayStringItem(dayStringItem, out var index);
+            });
+            Assert.That(exception.Message, Is.EqualTo("Matching date not successful"));
+        }
+
+        [Test]
+        public void ExtractDateFromStringItemNotSuccessfulTest2()
+        {
+            var dayStringItem =
+                "    Data Zajęć: 2019-10-04 piątek 17:30 19:00 2h00m dr Name Surname Advanced Math Wyk W/1/Web F Toronto Egzamin 19:15 20:45 2h00m doc. dr John Smiths Modern History of Poland Wyk W/1/Web F Praga Egzamin";
+            var exception = Assert.Throws<ParsingException>(() =>
+            {
+                PdfParser.ExtractDateFromDayStringItem(dayStringItem, out var index);
+            });
+            Assert.That(exception.Message, Is.EqualTo("Index of matched item not equals to 0"));
         }
     }
 }
