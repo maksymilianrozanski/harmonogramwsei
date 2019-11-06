@@ -175,5 +175,35 @@ namespace CalGeneratorTests.Lesson
             var result = LessonText.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
+
+        [Test]
+        public void ExtractLecturerSingleSurnameTest()
+        {
+            var lessonInput =
+                "9:40 11:10 2h00m dr hab. Thomas Orange Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
+            var expected = "dr hab. Thomas Orange";
+            var result = LessonText.ExtractLecturer(lessonInput);
+            Assert.AreEqual(expected, result);
+        }
+        
+        [Test]
+        public void ExtractLecturerDoubleSurnameTest()
+        {
+            var lessonInput =
+                "9:40 11:10 2h00m dr hab. Thomas Orange-Brown Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
+            var expected = "dr hab. Thomas Orange-Brown";
+            var result = LessonText.ExtractLecturer(lessonInput);
+            Assert.AreEqual(expected, result);
+        }
+        
+        [Test]
+        public void ExtractLecturerDoubleSurnameWithSpacesTest()
+        {
+            var lessonInput =
+                "9:40 11:10 2h00m dr hab. Thomas Orange - Brown Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
+            var expected = "dr hab. Thomas Orange - Brown";
+            var result = LessonText.ExtractLecturer(lessonInput);
+            Assert.AreEqual(expected, result);
+        }
     }
 }
