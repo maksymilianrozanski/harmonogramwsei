@@ -11,6 +11,13 @@ namespace CalendarGenerator.PdfParse
 {
     internal class PdfParser
     {
+        internal static List<Day> GetDaysList(string input)
+        {
+            string[] words = RawTextToWords(input);
+            List<string> stringDayItems = WordsToStringDayItems(words);
+            return DayStringsToDayItems(stringDayItems);
+        }
+        
         internal static string[] RawTextToWords(string input)
         {
             var removedBreakLines = input.Replace("\n", " ");
