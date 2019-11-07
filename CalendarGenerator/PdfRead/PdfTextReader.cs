@@ -7,12 +7,6 @@ namespace CalendarGenerator.PdfRead
 {
     public class PdfTextReader
     {
-        public string GetTextFromAllPages(string filePath)
-        {
-            var reader = new PdfReader(filePath);
-            return ExtractTextFromReader(reader);
-        }
-        
         public string GetTextFromAllPages(FileStream fileStream)
         {
             var reader = new PdfReader(fileStream);
@@ -24,7 +18,7 @@ namespace CalendarGenerator.PdfRead
             var doc = new PdfDocument(reader);
             var strategy = new SimpleTextExtractionStrategy();
 
-            for (int pageNum = 1; pageNum < doc.GetNumberOfPages(); pageNum++)
+            for (var pageNum = 1; pageNum < doc.GetNumberOfPages(); pageNum++)
             {
                 var page = doc.GetPage(pageNum);
                 PdfTextExtractor.GetTextFromPage(page, strategy);

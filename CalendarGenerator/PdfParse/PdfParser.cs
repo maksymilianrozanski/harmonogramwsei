@@ -12,8 +12,8 @@ namespace CalendarGenerator.PdfParse
     {
         internal static List<Day> GetDaysList(string input)
         {
-            string[] words = RawTextToWords(input);
-            List<string> stringDayItems = WordsToStringDayItems(words);
+            var words = RawTextToWords(input);
+            var stringDayItems = WordsToStringDayItems(words);
             return DayStringsToDayItems(stringDayItems);
         }
 
@@ -52,7 +52,7 @@ namespace CalendarGenerator.PdfParse
 
         internal static List<Day> DayStringsToDayItems(List<string> dayStringItems)
         {
-            List<Day> days = new List<Day>();
+            var days = new List<Day>();
             dayStringItems.ForEach(dayStringItem =>
             {
                 var date = ExtractDateFromDayStringItem(dayStringItem);
@@ -67,8 +67,8 @@ namespace CalendarGenerator.PdfParse
         {
             const string datePattern =
                 "Data Zajęć: \\d\\d\\d\\d-\\d\\d-\\d\\d \\b(poniedziałek|wtorek|środa|czwartek|piątek|sobota|niedziela)\\b";
-            Regex regex = new Regex(datePattern);
-            Match match = regex.Match(dayStringItem.Replace("  ", " "));
+            var regex = new Regex(datePattern);
+            var match = regex.Match(dayStringItem.Replace("  ", " "));
             if (match.Success == false) throw new ParsingException(ParsingException.MatchingDateFailed);
             if (match.Index != 0) throw new ParsingException(ParsingException.IndexOfMatchedItemNotZero);
             return match.Value;
@@ -79,10 +79,10 @@ namespace CalendarGenerator.PdfParse
             var lessons = new List<string>();
 
             const string startPattern = "\\d?\\d:\\d\\d \\d?\\d:\\d\\d";
-            Regex regex = new Regex(startPattern);
-            MatchCollection matches = regex.Matches(dayStringItem);
+            var regex = new Regex(startPattern);
+            var matches = regex.Matches(dayStringItem);
 
-            for (int i = 0; i < matches.Count - 1; i++)
+            for (var i = 0; i < matches.Count - 1; i++)
             {
                 var start = matches[i].Index;
                 var length = matches[i].NextMatch().Index - start;

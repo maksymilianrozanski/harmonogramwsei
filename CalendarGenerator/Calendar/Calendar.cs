@@ -1,10 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reactive;
 using System.Text;
-using CalendarGenerator.Lesson;
 using CalendarGenerator.PdfParse;
 
 namespace CalendarGenerator.Calendar
@@ -14,10 +10,10 @@ namespace CalendarGenerator.Calendar
         public static string GenerateCalendar(string rawInput)
         {
             var daysList = PdfParser.GetDaysList(rawInput);
-            IEnumerable<CalendarEvent> events =
+            var events =
                 daysList.SelectMany(day => day.GetLessonTexts()).Select(text => text.ToCalendarEvent());
 
-            StringBuilder calendar = new StringBuilder();
+            var calendar = new StringBuilder();
             calendar.AppendLine("BEGIN:VCALENDAR");
             calendar.AppendLine("VERSION:2.0");
             calendar.AppendLine("PRODID:Schedule_generated_with_itext7");
@@ -42,7 +38,7 @@ namespace CalendarGenerator.Calendar
 
         private static string FormatDateTime(DateTime dateTime)
         {
-            return dateTime.Year.ToString() + AppendZeroIfSingleDigit(dateTime.Month) +
+            return dateTime.Year + AppendZeroIfSingleDigit(dateTime.Month) +
                    AppendZeroIfSingleDigit(dateTime.Day) + "T" +
                    AppendZeroIfSingleDigit(dateTime.Hour) +
                    AppendZeroIfSingleDigit(dateTime.Minute) +

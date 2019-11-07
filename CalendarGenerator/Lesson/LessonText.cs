@@ -19,12 +19,12 @@ namespace CalendarGenerator.Lesson
         {
             var date = ExtractDate(dateString);
             ExtractHours(lessonString, out var startHour, out var endHour);
-            this.LecturersTitleAndName = ExtractLecturer(lessonString);
-            this.LessonType = ExtractLessonType(lessonString, LecturersTitleAndName);
-            this.LessonTitle = ExtractLessonName(lessonString, LecturersTitleAndName, LessonType);
-            this.LessonCodeAndClassRoom = ExtractLessonCodeAndClassRoom(lessonString, LessonTitle, LessonType);
-            this.StartDateTime = ParseToDateTime(date, startHour);
-            this.EndDateTime = ParseToDateTime(date, endHour);
+            LecturersTitleAndName = ExtractLecturer(lessonString);
+            LessonType = ExtractLessonType(lessonString, LecturersTitleAndName);
+            LessonTitle = ExtractLessonName(lessonString, LecturersTitleAndName, LessonType);
+            LessonCodeAndClassRoom = ExtractLessonCodeAndClassRoom(lessonString, LessonTitle, LessonType);
+            StartDateTime = ParseToDateTime(date, startHour);
+            EndDateTime = ParseToDateTime(date, endHour);
         }
 
         internal readonly CalendarEvent ToCalendarEvent()
@@ -35,7 +35,7 @@ namespace CalendarGenerator.Lesson
                 End = EndDateTime,
                 Summary = LessonType + " " + LessonTitle,
                 Description = LessonCodeAndClassRoom + " " + LecturersTitleAndName,
-                Location = LessonText.Location
+                Location = Location
             };
             return calEvent;
         }
@@ -43,8 +43,8 @@ namespace CalendarGenerator.Lesson
         internal static string ExtractDate(string input)
         {
             var datePattern = "\\d\\d\\d\\d-\\d\\d-\\d\\d";
-            Regex regex = new Regex(datePattern);
-            Match match = regex.Match(input);
+            var regex = new Regex(datePattern);
+            var match = regex.Match(input);
             return match.Value;
         }
 
@@ -57,7 +57,7 @@ namespace CalendarGenerator.Lesson
 
         public static DateTime ParseToDateTime(string date, string hour)
         {
-            DateTime dateTime = DateTime.Parse(date + " " + hour);
+            var dateTime = DateTime.Parse(date + " " + hour);
             return dateTime;
         }
 
@@ -65,12 +65,12 @@ namespace CalendarGenerator.Lesson
         {
             var title = ExtractLecturersTitle(lessonString);
             var matchIndex = lessonString.IndexOf(title, StringComparison.Ordinal);
-            int endOfTitle = matchIndex + title.Length;
+            var endOfTitle = matchIndex + title.Length;
             var titleCutOff = lessonString.Substring(endOfTitle);
             var lecturerPattern =
                 "(\\p{L}+ \\p{L}+\\-\\p{L}+)|(\\p{L}+ \\p{L}+ \\- \\p{L}+)|(\\p{L}+ \\p{L}+)";
-            Regex nameRegex = new Regex(lecturerPattern);
-            Match nameMatch = nameRegex.Match(titleCutOff);
+            var nameRegex = new Regex(lecturerPattern);
+            var nameMatch = nameRegex.Match(titleCutOff);
             return title + " " + nameMatch.Value;
         }
 
@@ -78,8 +78,8 @@ namespace CalendarGenerator.Lesson
         {
             const string possibleTitles =
                 "(prof. zw. dr hab.|prof. WSEI dr hab.|prof. nadzw. dr|prof. dr hab. inż.|prof. dr hab.|mecenas|mgr inż.|mgr|dr inż.|inż.|dr hab. inż.|doc. dr|dr hab.|dr|MBA)";
-            Regex regex = new Regex(possibleTitles);
-            Match match = regex.Match(lessonString);
+            var regex = new Regex(possibleTitles);
+            var match = regex.Match(lessonString);
             return match.Value;
         }
 
@@ -87,8 +87,8 @@ namespace CalendarGenerator.Lesson
         {
             const string possibleLessonTypes = " Cw | Lab | Konw | Wyk ";
             var lecturersNameCutOff = lessonString.Split(lecturersTitleAndName)[1];
-            Regex regex = new Regex(possibleLessonTypes);
-            Match match = regex.Match(lecturersNameCutOff);
+            var regex = new Regex(possibleLessonTypes);
+            var match = regex.Match(lecturersNameCutOff);
             return match.Value.Trim();
         }
 
@@ -102,8 +102,8 @@ namespace CalendarGenerator.Lesson
         {
             var lessonTitleCutOff = lessonString.Split(lessonName + " " + lessonType)[1];
             const string examTypePattern = " Egzamin| Zaliczenie ocena";
-            Regex regex = new Regex(examTypePattern);
-            Match match = regex.Match(lessonTitleCutOff);
+            var regex = new Regex(examTypePattern);
+            var match = regex.Match(lessonTitleCutOff);
             var examType = match.Value;
             return lessonTitleCutOff.Split(examType)[0].Trim();
         }
@@ -121,7 +121,7 @@ namespace CalendarGenerator.Lesson
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (obj.GetType() != GetType()) return false;
             return Equals((LessonText) obj);
         }
 
@@ -129,7 +129,7 @@ namespace CalendarGenerator.Lesson
         {
             unchecked
             {
-                var hashCode = (LecturersTitleAndName != null ? LecturersTitleAndName.GetHashCode() : 0);
+                var hashCode = LecturersTitleAndName != null ? LecturersTitleAndName.GetHashCode() : 0;
                 hashCode = (hashCode * 397) ^ (LessonTitle != null ? LessonTitle.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (LessonType != null ? LessonType.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^
