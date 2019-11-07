@@ -28,6 +28,26 @@ namespace CalGeneratorTests.Lesson
         }
 
         [Test]
+        public void ParseToDateTimeAMTest()
+        {
+            var inputDate = "2019-10-04";
+            var inputHour = "9:40";
+            var expected = new DateTime(2019, 10, 4, 9, 40, 0);
+            var result = LessonText.ParseToDateTime(inputDate, inputHour);
+            Assert.AreEqual(expected, result);
+        }
+        
+        [Test]
+        public void ParseToDateTimePMTest()
+        {
+            var inputDate = "2019-10-04";
+            var inputHour = "19:40";
+            var expected = new DateTime(2019, 10, 4, 19, 40, 0);
+            var result = LessonText.ParseToDateTime(inputDate, inputHour);
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
         public void ExtractLecturersTitleProfZwDrHabTest()
         {
             var lessonInput =
@@ -275,7 +295,7 @@ namespace CalGeneratorTests.Lesson
             var result = LessonText.ExtractLessonCodeAndClassRoom(lessonInput, lessonName, lessonType);
             Assert.AreEqual(expected, result);
         }
-        
+
         [Test]
         public void ExtractLessonCodeAndClassRoomCodeWithSpacesTest()
         {

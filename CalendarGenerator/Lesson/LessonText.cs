@@ -28,6 +28,12 @@ namespace CalendarGenerator.Lesson
             end = wordArray[1];
         }
 
+        public static DateTime ParseToDateTime(string date, string hour)
+        {
+            DateTime dateTime = DateTime.Parse(date + " " + hour);
+            return dateTime;
+        }
+
         public static string ExtractLecturer(string lessonString)
         {
             var title = ExtractLecturersTitle(lessonString);
