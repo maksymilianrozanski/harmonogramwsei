@@ -8,7 +8,7 @@ namespace CalendarGenerator.Lesson
         public string Date { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }
-        public string Lecturer { get; set; } //TODO: rename to include lecturer's title
+        public string LecturersTitleAndName { get; set; }
         public string LessonTitle { get; set; }
         public string LessonType { get; set; }
         public string LessonCodeAndClassRoom { get; set; }
@@ -21,9 +21,9 @@ namespace CalendarGenerator.Lesson
             ExtractHours(lessonString, out var startHour, out var endHour);
             this.StartTime = startHour;
             this.EndTime = endHour;
-            this.Lecturer = ExtractLecturer(lessonString);
-            this.LessonType = ExtractLessonType(lessonString, Lecturer);
-            this.LessonTitle = ExtractLessonName(lessonString, Lecturer, LessonType);
+            this.LecturersTitleAndName = ExtractLecturer(lessonString);
+            this.LessonType = ExtractLessonType(lessonString, LecturersTitleAndName);
+            this.LessonTitle = ExtractLessonName(lessonString, LecturersTitleAndName, LessonType);
             this.LessonCodeAndClassRoom = ExtractLessonCodeAndClassRoom(lessonString, LessonTitle, LessonType);
             this.StartDateTime = ParseToDateTime(Date, startHour);
             this.EndDateTime = ParseToDateTime(Date, endHour);
@@ -106,7 +106,8 @@ namespace CalendarGenerator.Lesson
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
             return Date == other.Date && StartTime == other.StartTime && EndTime == other.EndTime &&
-                   Lecturer == other.Lecturer && LessonTitle == other.LessonTitle && LessonType == other.LessonType &&
+                   LecturersTitleAndName == other.LecturersTitleAndName && LessonTitle == other.LessonTitle &&
+                   LessonType == other.LessonType &&
                    LessonCodeAndClassRoom == other.LessonCodeAndClassRoom &&
                    StartDateTime.Equals(other.StartDateTime) && EndDateTime.Equals(other.EndDateTime);
         }
@@ -126,7 +127,7 @@ namespace CalendarGenerator.Lesson
                 var hashCode = (Date != null ? Date.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (StartTime != null ? StartTime.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (EndTime != null ? EndTime.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Lecturer != null ? Lecturer.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (LecturersTitleAndName != null ? LecturersTitleAndName.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (LessonTitle != null ? LessonTitle.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (LessonType != null ? LessonType.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^

@@ -15,7 +15,7 @@ namespace CalGeneratorTests.Lesson
             expected.Date = "2019-10-05";
             expected.StartTime = "11:20";
             expected.EndTime = "14:30";
-            expected.Lecturer = "doc. dr John Black";
+            expected.LecturersTitleAndName = "doc. dr John Black";
             expected.LessonTitle = "Physics";
             expected.LessonType = "Wyk";
             expected.LessonCodeAndClassRoom = "W/2/W F Toronto";
