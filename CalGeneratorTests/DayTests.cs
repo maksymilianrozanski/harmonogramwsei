@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using CalendarGenerator.Lesson;
 using CalendarGenerator.PdfParse;
 using NUnit.Framework;
 

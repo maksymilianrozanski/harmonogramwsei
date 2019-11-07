@@ -317,7 +317,8 @@ namespace CalGeneratorTests.Lesson
             var lecturersTitleAndName = "dr hab. Thomas Orange - Brown";
             var lessonType = "Wyk";
             var expected = "Biology and Geography";
-            var result = CalendarGenerator.Lesson.Lesson.ExtractLessonName(lessonInput, lecturersTitleAndName, lessonType);
+            var result =
+                CalendarGenerator.Lesson.Lesson.ExtractLessonName(lessonInput, lecturersTitleAndName, lessonType);
             Assert.AreEqual(expected, result);
         }
 
@@ -329,7 +330,8 @@ namespace CalGeneratorTests.Lesson
             var lessonName = "Biology and Geography";
             var lessonType = "Wyk";
             var expected = "lab15/2/WebN F Los Angeles";
-            var result = CalendarGenerator.Lesson.Lesson.ExtractLessonCodeAndClassRoom(lessonInput, lessonName, lessonType);
+            var result =
+                CalendarGenerator.Lesson.Lesson.ExtractLessonCodeAndClassRoom(lessonInput, lessonName, lessonType);
             Assert.AreEqual(expected, result);
         }
 
@@ -341,7 +343,8 @@ namespace CalGeneratorTests.Lesson
             var lessonName = "Biology and Geography";
             var lessonType = "Wyk";
             var expected = "90 w lab15/2/WebN F Los Angeles";
-            var result = CalendarGenerator.Lesson.Lesson.ExtractLessonCodeAndClassRoom(lessonInput, lessonName, lessonType);
+            var result =
+                CalendarGenerator.Lesson.Lesson.ExtractLessonCodeAndClassRoom(lessonInput, lessonName, lessonType);
             Assert.AreEqual(expected, result);
         }
     }
