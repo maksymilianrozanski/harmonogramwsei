@@ -16,12 +16,12 @@ namespace CalendarGenerator.PdfParse
             LessonStrings = lessonStrings;
         }
 
-        internal readonly List<LessonText> GetLessonTexts()
+        internal readonly List<Lesson.Lesson> GetLessonTexts()
         {
-            var lessons = new List<LessonText>();
+            var lessons = new List<Lesson.Lesson>();
             foreach (var lessonString in LessonStrings)
             {
-                var lessonText = new LessonText(Date, lessonString);
+                var lessonText = new Lesson.Lesson(Date, lessonString);
                 lessons.Add(lessonText);
             }
 

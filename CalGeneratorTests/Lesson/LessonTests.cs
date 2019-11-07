@@ -1,6 +1,5 @@
 using System;
 using CalendarGenerator.Calendar;
-using CalendarGenerator.Lesson;
 using NUnit.Framework;
 
 namespace CalGeneratorTests.Lesson
@@ -12,7 +11,7 @@ namespace CalGeneratorTests.Lesson
         {
             var inputDateString = "Data Zajęć: 2019-10-05 sobota";
             var lessonInputString = "11:20 14:30 4h00m doc. dr John Black Physics Wyk W/2/W F Toronto Egzamin";
-            var result = new LessonText(inputDateString, lessonInputString);
+            var result = new CalendarGenerator.Lesson.Lesson(inputDateString, lessonInputString);
             Assert.AreEqual("doc. dr John Black", result.LecturersTitleAndName);
             Assert.AreEqual("Physics", result.LessonTitle);
             Assert.AreEqual("Wyk", result.LessonType);
@@ -26,7 +25,7 @@ namespace CalGeneratorTests.Lesson
         {
             var inputDateString = "Data Zajęć: 2019-10-05 sobota";
             var lessonInputString = "11:20 14:30 4h00m doc. dr John Black Physics Wyk W/2/W F Toronto Egzamin";
-            var lessonText = new LessonText(inputDateString, lessonInputString);
+            var lessonText = new CalendarGenerator.Lesson.Lesson(inputDateString, lessonInputString);
 
             var expected = new CalendarEvent
             {
@@ -34,7 +33,7 @@ namespace CalGeneratorTests.Lesson
                 End = lessonText.EndDateTime,
                 Summary = lessonText.LessonType + " " + lessonText.LessonTitle,
                 Description = lessonText.LessonCodeAndClassRoom + " " + lessonText.LecturersTitleAndName,
-                Location = LessonText.Location
+                Location = CalendarGenerator.Lesson.Lesson.Location
             };
             var result = lessonText.ToCalendarEvent();
             Assert.AreEqual(expected.Start, result.Start);
@@ -49,7 +48,7 @@ namespace CalGeneratorTests.Lesson
         {
             var input = "Data Zajęć: 2019-10-04 piątek";
             var expected = "2019-10-04";
-            var result = LessonText.ExtractDate(input);
+            var result = CalendarGenerator.Lesson.Lesson.ExtractDate(input);
             Assert.AreEqual(expected, result);
         }
 
@@ -60,7 +59,7 @@ namespace CalGeneratorTests.Lesson
                 "9:40 11:10 2h00m mgr inż. Thomas Orange Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
             var expectedStart = "9:40";
             var expectedEnd = "11:10";
-            LessonText.ExtractHours(input, out var startResult, out var endResult);
+            CalendarGenerator.Lesson.Lesson.ExtractHours(input, out var startResult, out var endResult);
             Assert.AreEqual(expectedStart, startResult);
             Assert.AreEqual(expectedEnd, endResult);
         }
@@ -71,7 +70,7 @@ namespace CalGeneratorTests.Lesson
             var inputDate = "2019-10-04";
             var inputHour = "9:40";
             var expected = new DateTime(2019, 10, 4, 9, 40, 0);
-            var result = LessonText.ParseToDateTime(inputDate, inputHour);
+            var result = CalendarGenerator.Lesson.Lesson.ParseToDateTime(inputDate, inputHour);
             Assert.AreEqual(expected, result);
         }
 
@@ -81,7 +80,7 @@ namespace CalGeneratorTests.Lesson
             var inputDate = "2019-10-04";
             var inputHour = "19:40";
             var expected = new DateTime(2019, 10, 4, 19, 40, 0);
-            var result = LessonText.ParseToDateTime(inputDate, inputHour);
+            var result = CalendarGenerator.Lesson.Lesson.ParseToDateTime(inputDate, inputHour);
             Assert.AreEqual(expected, result);
         }
 
@@ -91,7 +90,7 @@ namespace CalGeneratorTests.Lesson
             var lessonInput =
                 "9:40 11:10 2h00m prof. zw. dr hab. Thomas Orange Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
             var expected = "prof. zw. dr hab.";
-            var result = LessonText.ExtractLecturersTitle(lessonInput);
+            var result = CalendarGenerator.Lesson.Lesson.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
 
@@ -101,7 +100,7 @@ namespace CalGeneratorTests.Lesson
             var lessonInput =
                 "9:40 11:10 2h00m prof. WSEI dr hab. Thomas Orange Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
             var expected = "prof. WSEI dr hab.";
-            var result = LessonText.ExtractLecturersTitle(lessonInput);
+            var result = CalendarGenerator.Lesson.Lesson.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
 
@@ -111,7 +110,7 @@ namespace CalGeneratorTests.Lesson
             var lessonInput =
                 "9:40 11:10 2h00m prof. nadzw. dr Thomas Orange Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
             var expected = "prof. nadzw. dr";
-            var result = LessonText.ExtractLecturersTitle(lessonInput);
+            var result = CalendarGenerator.Lesson.Lesson.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
 
@@ -121,7 +120,7 @@ namespace CalGeneratorTests.Lesson
             var lessonInput =
                 "9:40 11:10 2h00m prof. dr hab. inż. Thomas Orange Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
             var expected = "prof. dr hab. inż.";
-            var result = LessonText.ExtractLecturersTitle(lessonInput);
+            var result = CalendarGenerator.Lesson.Lesson.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
 
@@ -131,7 +130,7 @@ namespace CalGeneratorTests.Lesson
             var lessonInput =
                 "9:40 11:10 2h00m prof. dr hab. Thomas Orange Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
             var expected = "prof. dr hab.";
-            var result = LessonText.ExtractLecturersTitle(lessonInput);
+            var result = CalendarGenerator.Lesson.Lesson.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
 
@@ -141,7 +140,7 @@ namespace CalGeneratorTests.Lesson
             var lessonInput =
                 "9:40 11:10 2h00m mecenas Thomas Orange Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
             var expected = "mecenas";
-            var result = LessonText.ExtractLecturersTitle(lessonInput);
+            var result = CalendarGenerator.Lesson.Lesson.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
 
@@ -151,7 +150,7 @@ namespace CalGeneratorTests.Lesson
             var lessonInput =
                 "9:40 11:10 2h00m mgr inż. Thomas Orange Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
             var expected = "mgr inż.";
-            var result = LessonText.ExtractLecturersTitle(lessonInput);
+            var result = CalendarGenerator.Lesson.Lesson.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
 
@@ -161,7 +160,7 @@ namespace CalGeneratorTests.Lesson
             var lessonInput =
                 "9:40 11:10 2h00m mgr Thomas Orange Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
             var expected = "mgr";
-            var result = LessonText.ExtractLecturersTitle(lessonInput);
+            var result = CalendarGenerator.Lesson.Lesson.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
 
@@ -171,7 +170,7 @@ namespace CalGeneratorTests.Lesson
             var lessonInput =
                 "9:40 11:10 2h00m dr inż. Thomas Orange Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
             var expected = "dr inż.";
-            var result = LessonText.ExtractLecturersTitle(lessonInput);
+            var result = CalendarGenerator.Lesson.Lesson.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
 
@@ -181,7 +180,7 @@ namespace CalGeneratorTests.Lesson
             var lessonInput =
                 "9:40 11:10 2h00m dr Thomas Orange Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
             var expected = "dr";
-            var result = LessonText.ExtractLecturersTitle(lessonInput);
+            var result = CalendarGenerator.Lesson.Lesson.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
 
@@ -191,7 +190,7 @@ namespace CalGeneratorTests.Lesson
             var lessonInput =
                 "9:40 11:10 2h00m inż. Thomas Orange Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
             var expected = "inż.";
-            var result = LessonText.ExtractLecturersTitle(lessonInput);
+            var result = CalendarGenerator.Lesson.Lesson.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
 
@@ -201,7 +200,7 @@ namespace CalGeneratorTests.Lesson
             var lessonInput =
                 "9:40 11:10 2h00m dr hab. inż. Thomas Orange Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
             var expected = "dr hab. inż.";
-            var result = LessonText.ExtractLecturersTitle(lessonInput);
+            var result = CalendarGenerator.Lesson.Lesson.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
 
@@ -211,7 +210,7 @@ namespace CalGeneratorTests.Lesson
             var lessonInput =
                 "9:40 11:10 2h00m doc. dr Thomas Orange Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
             var expected = "doc. dr";
-            var result = LessonText.ExtractLecturersTitle(lessonInput);
+            var result = CalendarGenerator.Lesson.Lesson.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
 
@@ -221,7 +220,7 @@ namespace CalGeneratorTests.Lesson
             var lessonInput =
                 "9:40 11:10 2h00m dr hab. Thomas Orange Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
             var expected = "dr hab.";
-            var result = LessonText.ExtractLecturersTitle(lessonInput);
+            var result = CalendarGenerator.Lesson.Lesson.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
 
@@ -231,7 +230,7 @@ namespace CalGeneratorTests.Lesson
             var lessonInput =
                 "9:40 11:10 2h00m MBA Thomas Orange Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
             var expected = "MBA";
-            var result = LessonText.ExtractLecturersTitle(lessonInput);
+            var result = CalendarGenerator.Lesson.Lesson.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
 
@@ -241,7 +240,7 @@ namespace CalGeneratorTests.Lesson
             var lessonInput =
                 "9:40 11:10 2h00m dr hab. Thomasżąęźł Oórangeąę Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
             var expected = "dr hab. Thomasżąęźł Oórangeąę";
-            var result = LessonText.ExtractLecturer(lessonInput);
+            var result = CalendarGenerator.Lesson.Lesson.ExtractLecturer(lessonInput);
             Assert.AreEqual(expected, result);
         }
 
@@ -251,7 +250,7 @@ namespace CalGeneratorTests.Lesson
             var lessonInput =
                 "9:40 11:10 2h00m dr hab. Thomas Orange-Brown Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
             var expected = "dr hab. Thomas Orange-Brown";
-            var result = LessonText.ExtractLecturer(lessonInput);
+            var result = CalendarGenerator.Lesson.Lesson.ExtractLecturer(lessonInput);
             Assert.AreEqual(expected, result);
         }
 
@@ -261,7 +260,7 @@ namespace CalGeneratorTests.Lesson
             var lessonInput =
                 "9:40 11:10 2h00m dr hab. Thomas Orange - Brown Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
             var expected = "dr hab. Thomas Orange - Brown";
-            var result = LessonText.ExtractLecturer(lessonInput);
+            var result = CalendarGenerator.Lesson.Lesson.ExtractLecturer(lessonInput);
             Assert.AreEqual(expected, result);
         }
 
@@ -272,7 +271,7 @@ namespace CalGeneratorTests.Lesson
                 "9:40 11:10 2h00m dr hab. Thomas Orange - Brown Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
             var lecturersTitleAndName = "dr hab. Thomas Orange - Brown";
             var expected = "Lab";
-            var result = LessonText.ExtractLessonType(lessonInput, lecturersTitleAndName);
+            var result = CalendarGenerator.Lesson.Lesson.ExtractLessonType(lessonInput, lecturersTitleAndName);
             Assert.AreEqual(expected, result);
         }
 
@@ -283,7 +282,7 @@ namespace CalGeneratorTests.Lesson
                 "9:40 11:10 2h00m dr hab. Thomas Orange - Brown Biology and Geography Cw lab15/2/WebN F Los Angeles Zaliczenie ocena ";
             var lecturersTitleAndName = "dr hab. Thomas Orange - Brown";
             var expected = "Cw";
-            var result = LessonText.ExtractLessonType(lessonInput, lecturersTitleAndName);
+            var result = CalendarGenerator.Lesson.Lesson.ExtractLessonType(lessonInput, lecturersTitleAndName);
             Assert.AreEqual(expected, result);
         }
 
@@ -295,7 +294,7 @@ namespace CalGeneratorTests.Lesson
                 "9:40 11:10 2h00m dr hab. Thomas Orange - Brown Biology and Geography Konw lab15/2/WebN F Los Angeles Zaliczenie ocena ";
             var lecturersTitleAndName = "dr hab. Thomas Orange - Brown";
             var expected = "Konw";
-            var result = LessonText.ExtractLessonType(lessonInput, lecturersTitleAndName);
+            var result = CalendarGenerator.Lesson.Lesson.ExtractLessonType(lessonInput, lecturersTitleAndName);
             Assert.AreEqual(expected, result);
         }
 
@@ -306,7 +305,7 @@ namespace CalGeneratorTests.Lesson
                 "9:40 11:10 2h00m dr hab. Thomas Orange - Brown Biology and Geography Wyk lab15/2/WebN F Los Angeles Zaliczenie ocena ";
             var lecturersTitleAndName = "dr hab. Thomas Orange - Brown";
             var expected = "Wyk";
-            var result = LessonText.ExtractLessonType(lessonInput, lecturersTitleAndName);
+            var result = CalendarGenerator.Lesson.Lesson.ExtractLessonType(lessonInput, lecturersTitleAndName);
             Assert.AreEqual(expected, result);
         }
 
@@ -318,7 +317,7 @@ namespace CalGeneratorTests.Lesson
             var lecturersTitleAndName = "dr hab. Thomas Orange - Brown";
             var lessonType = "Wyk";
             var expected = "Biology and Geography";
-            var result = LessonText.ExtractLessonName(lessonInput, lecturersTitleAndName, lessonType);
+            var result = CalendarGenerator.Lesson.Lesson.ExtractLessonName(lessonInput, lecturersTitleAndName, lessonType);
             Assert.AreEqual(expected, result);
         }
 
@@ -330,7 +329,7 @@ namespace CalGeneratorTests.Lesson
             var lessonName = "Biology and Geography";
             var lessonType = "Wyk";
             var expected = "lab15/2/WebN F Los Angeles";
-            var result = LessonText.ExtractLessonCodeAndClassRoom(lessonInput, lessonName, lessonType);
+            var result = CalendarGenerator.Lesson.Lesson.ExtractLessonCodeAndClassRoom(lessonInput, lessonName, lessonType);
             Assert.AreEqual(expected, result);
         }
 
@@ -342,7 +341,7 @@ namespace CalGeneratorTests.Lesson
             var lessonName = "Biology and Geography";
             var lessonType = "Wyk";
             var expected = "90 w lab15/2/WebN F Los Angeles";
-            var result = LessonText.ExtractLessonCodeAndClassRoom(lessonInput, lessonName, lessonType);
+            var result = CalendarGenerator.Lesson.Lesson.ExtractLessonCodeAndClassRoom(lessonInput, lessonName, lessonType);
             Assert.AreEqual(expected, result);
         }
     }

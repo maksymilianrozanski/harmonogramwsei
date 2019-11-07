@@ -22,10 +22,10 @@ namespace CalGeneratorTests
         [Test]
         public void GetLessonTextsTest()
         {
-            var expected = new List<LessonText>
+            var expected = new List<CalendarGenerator.Lesson.Lesson>
             {
-                new LessonText(_dayOne.Date, _dayOne.LessonStrings[0]),
-                new LessonText(_dayOne.Date, _dayOne.LessonStrings[1])
+                new CalendarGenerator.Lesson.Lesson(_dayOne.Date, _dayOne.LessonStrings[0]),
+                new CalendarGenerator.Lesson.Lesson(_dayOne.Date, _dayOne.LessonStrings[1])
             };
             var result = _dayOne.GetLessonTexts();
             Assert.AreEqual(expected, result);

@@ -4,7 +4,7 @@ using CalendarGenerator.Calendar;
 
 namespace CalendarGenerator.Lesson
 {
-    internal struct LessonText : IEquatable<LessonText>
+    internal struct Lesson : IEquatable<Lesson>
     {
         public string LecturersTitleAndName { get; }
         public string LessonTitle { get; }
@@ -15,7 +15,7 @@ namespace CalendarGenerator.Lesson
 
         internal const string Location = "św. Filipa 17";
 
-        public LessonText(string dateString, string lessonString)
+        public Lesson(string dateString, string lessonString)
         {
             var date = ExtractDate(dateString);
             ExtractHours(lessonString, out var startHour, out var endHour);
@@ -108,7 +108,7 @@ namespace CalendarGenerator.Lesson
             return lessonTitleCutOff.Split(examType)[0].Trim();
         }
 
-        public bool Equals(LessonText other)
+        public bool Equals(Lesson other)
         {
             return LecturersTitleAndName == other.LecturersTitleAndName && LessonTitle == other.LessonTitle &&
                    LessonType == other.LessonType && LessonCodeAndClassRoom == other.LessonCodeAndClassRoom &&
@@ -117,7 +117,7 @@ namespace CalendarGenerator.Lesson
 
         public override bool Equals(object obj)
         {
-            return obj is LessonText other && Equals(other);
+            return obj is Lesson other && Equals(other);
         }
 
         public override int GetHashCode()
@@ -135,12 +135,12 @@ namespace CalendarGenerator.Lesson
             }
         }
 
-        public static bool operator ==(LessonText left, LessonText right)
+        public static bool operator ==(Lesson left, Lesson right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(LessonText left, LessonText right)
+        public static bool operator !=(Lesson left, Lesson right)
         {
             return !Equals(left, right);
         }
