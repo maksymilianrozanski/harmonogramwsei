@@ -12,31 +12,21 @@ namespace CalGeneratorTests.Lesson
         {
             var inputDateString = "Data Zajęć: 2019-10-05 sobota";
             var lessonInputString = "11:20 14:30 4h00m doc. dr John Black Physics Wyk W/2/W F Toronto Egzamin";
-            var expected = new LessonText
-            {
-                LecturersTitleAndName = "doc. dr John Black",
-                LessonTitle = "Physics",
-                LessonType = "Wyk",
-                LessonCodeAndClassRoom = "W/2/W F Toronto",
-                StartDateTime = new DateTime(2019, 10, 5, 11, 20, 0),
-                EndDateTime = new DateTime(2019, 10, 5, 14, 30, 0)
-            };
             var result = new LessonText(inputDateString, lessonInputString);
-            Assert.AreEqual(expected, result);
+            Assert.AreEqual("doc. dr John Black", result.LecturersTitleAndName);
+            Assert.AreEqual("Physics", result.LessonTitle);
+            Assert.AreEqual("Wyk", result.LessonType);
+            Assert.AreEqual("W/2/W F Toronto", result.LessonCodeAndClassRoom);
+            Assert.AreEqual(new DateTime(2019, 10, 5, 11, 20, 0), result.StartDateTime);
+            Assert.AreEqual(new DateTime(2019, 10, 5, 14, 30, 0), result.EndDateTime);
         }
 
         [Test]
         public void ToCalendarEventTest()
         {
-            var lessonText = new LessonText
-            {
-                LecturersTitleAndName = "doc. dr John Black",
-                LessonTitle = "Physics",
-                LessonType = "Wyk",
-                LessonCodeAndClassRoom = "W/2/W F Toronto",
-                StartDateTime = new DateTime(2019, 10, 5, 11, 20, 0),
-                EndDateTime = new DateTime(2019, 10, 5, 14, 30, 0)
-            };
+            var inputDateString = "Data Zajęć: 2019-10-05 sobota";
+            var lessonInputString = "11:20 14:30 4h00m doc. dr John Black Physics Wyk W/2/W F Toronto Egzamin";
+            var lessonText = new LessonText(inputDateString, lessonInputString);
 
             var expected = new CalendarEvent
             {

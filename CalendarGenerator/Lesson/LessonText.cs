@@ -6,12 +6,12 @@ namespace CalendarGenerator.Lesson
 {
     internal struct LessonText : IEquatable<LessonText>
     {
-        public string LecturersTitleAndName { get; set; }
-        public string LessonTitle { get; set; }
-        public string LessonType { get; set; }
-        public string LessonCodeAndClassRoom { get; set; }
-        public DateTime StartDateTime { get; set; }
-        public DateTime EndDateTime { get; set; }
+        public string LecturersTitleAndName { get; }
+        public string LessonTitle { get; }
+        public string LessonType { get; }
+        public string LessonCodeAndClassRoom { get; }
+        public DateTime StartDateTime { get; }
+        public DateTime EndDateTime { get; }
 
         internal const string Location = "św. Filipa 17";
 
@@ -110,8 +110,6 @@ namespace CalendarGenerator.Lesson
 
         public bool Equals(LessonText other)
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
             return LecturersTitleAndName == other.LecturersTitleAndName && LessonTitle == other.LessonTitle &&
                    LessonType == other.LessonType && LessonCodeAndClassRoom == other.LessonCodeAndClassRoom &&
                    StartDateTime.Equals(other.StartDateTime) && EndDateTime.Equals(other.EndDateTime);
@@ -119,17 +117,14 @@ namespace CalendarGenerator.Lesson
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
-            return Equals((LessonText) obj);
+            return obj is LessonText other && Equals(other);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                var hashCode = LecturersTitleAndName != null ? LecturersTitleAndName.GetHashCode() : 0;
+                var hashCode = (LecturersTitleAndName != null ? LecturersTitleAndName.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (LessonTitle != null ? LessonTitle.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (LessonType != null ? LessonType.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^
