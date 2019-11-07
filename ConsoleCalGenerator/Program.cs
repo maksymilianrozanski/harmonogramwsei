@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using CalendarGenerator;
 using CalendarGenerator.PdfRead;
 using Calendar = CalendarGenerator.Calendar.Calendar;
 
@@ -11,12 +12,9 @@ namespace ConsoleCalGenerator
         {
             Console.WriteLine("Enter pdf file path.");
             var path = Console.ReadLine();
-            var reader = new PdfTextReader();
-            
-            using var stream = File.Open(path, FileMode.Open, FileAccess.Read);
-            var extractedText = reader.GetTextFromAllPages(stream);
-            var iCalCalendarText = Calendar.GenerateCalendar(extractedText);
-            Console.WriteLine(iCalCalendarText);
+            var generator = new CalGeneratorImpl();
+            var calendar = generator.GenerateICalCalendar(path);
+            Console.WriteLine(calendar);
         }
     }
 }

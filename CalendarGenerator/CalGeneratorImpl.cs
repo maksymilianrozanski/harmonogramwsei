@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using CalendarGenerator.PdfRead;
 
 namespace CalendarGenerator
 {
@@ -7,8 +8,11 @@ namespace CalendarGenerator
     {
         public string GenerateICalCalendar(string pdfFilePath)
         {
-            // TODO: not implemented yet
-            return "not implemented yet";
+            var reader = new PdfTextReader();
+            using var stream = File.Open(pdfFilePath, FileMode.Open, FileAccess.Read);
+            var extractedText = reader.GetTextFromAllPages(stream);
+            var iCalendarText = Calendar.Calendar.GenerateCalendar(extractedText);
+            return iCalendarText;
         }
 
         public string GenerateICalCalendar(FileStream pdfFileStream)
