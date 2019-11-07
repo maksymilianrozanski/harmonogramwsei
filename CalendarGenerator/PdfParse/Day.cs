@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CalendarGenerator.Lesson;
 
 namespace CalendarGenerator.PdfParse
 {
@@ -13,6 +14,18 @@ namespace CalendarGenerator.PdfParse
         {
             Date = date;
             LessonStrings = lessonStrings;
+        }
+
+        internal readonly List<LessonText> GetLessonTexts()
+        {
+            var lessons = new List<LessonText>();
+            foreach (var lessonString in LessonStrings)
+            {
+                var lessonText = new LessonText(Date, lessonString);
+                lessons.Add(lessonText);
+            }
+
+            return lessons;
         }
 
         public bool Equals(Day other)
