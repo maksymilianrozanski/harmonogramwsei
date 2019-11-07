@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
 using CalendarGenerator;
-using CalendarGenerator.PdfRead;
-using Calendar = CalendarGenerator.Calendar.Calendar;
 
 namespace ConsoleCalGenerator
 {
