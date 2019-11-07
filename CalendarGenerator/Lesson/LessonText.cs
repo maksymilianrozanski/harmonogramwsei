@@ -60,5 +60,11 @@ namespace CalendarGenerator.Lesson
             Match match = regex.Match(lecturersNameCutOff);
             return match.Value.Trim();
         }
+
+        internal static string ExtractLessonName(string lessonString, string lecturersTitleAndName, string lessonType)
+        {
+            var lecturersNameCutOff = lessonString.Split(lecturersTitleAndName)[1];
+            return lecturersNameCutOff.Split(lessonType)[0].Trim();
+        }
     }
 }
