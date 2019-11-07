@@ -3,17 +3,35 @@ using System.Text.RegularExpressions;
 
 namespace CalendarGenerator.Lesson
 {
-    internal class LessonText
+    internal class LessonText : IEquatable<LessonText>
     {
         public string Date { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }
-        public string Lecturer { get; set; }
+        public string Lecturer { get; set; } //TODO: rename to include lecturer's title
         public string LessonTitle { get; set; }
         public string LessonType { get; set; }
         public string LessonCodeAndClassRoom { get; set; }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
+
+        public LessonText(string dateString, string lessonString)
+        {
+            this.Date = ExtractDate(dateString);
+            ExtractHours(lessonString, out var startHour, out var endHour);
+            this.StartTime = startHour;
+            this.EndTime = endHour;
+            this.Lecturer = ExtractLecturer(lessonString);
+            this.LessonType = ExtractLessonType(lessonString, Lecturer);
+            this.LessonTitle = ExtractLessonName(lessonString, Lecturer, LessonType);
+            this.LessonCodeAndClassRoom = ExtractLessonCodeAndClassRoom(lessonString, LessonTitle, LessonType);
+            this.StartDateTime = ParseToDateTime(Date, startHour);
+            this.EndDateTime = ParseToDateTime(Date, endHour);
+        }
+
+        internal LessonText()
+        {
+        }
 
         internal static string ExtractDate(string input)
         {
@@ -81,6 +99,52 @@ namespace CalendarGenerator.Lesson
             Match match = regex.Match(lessonTitleCutOff);
             var examType = match.Value;
             return lessonTitleCutOff.Split(examType)[0].Trim();
+        }
+
+        public bool Equals(LessonText other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Date == other.Date && StartTime == other.StartTime && EndTime == other.EndTime &&
+                   Lecturer == other.Lecturer && LessonTitle == other.LessonTitle && LessonType == other.LessonType &&
+                   LessonCodeAndClassRoom == other.LessonCodeAndClassRoom &&
+                   StartDateTime.Equals(other.StartDateTime) && EndDateTime.Equals(other.EndDateTime);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((LessonText) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = (Date != null ? Date.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (StartTime != null ? StartTime.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (EndTime != null ? EndTime.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Lecturer != null ? Lecturer.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (LessonTitle != null ? LessonTitle.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (LessonType != null ? LessonType.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^
+                           (LessonCodeAndClassRoom != null ? LessonCodeAndClassRoom.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ StartDateTime.GetHashCode();
+                hashCode = (hashCode * 397) ^ EndDateTime.GetHashCode();
+                return hashCode;
+            }
+        }
+
+        public static bool operator ==(LessonText left, LessonText right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(LessonText left, LessonText right)
+        {
+            return !Equals(left, right);
         }
     }
 }

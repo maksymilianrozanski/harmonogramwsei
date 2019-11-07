@@ -7,6 +7,25 @@ namespace CalGeneratorTests.Lesson
     public class LessonTests
     {
         [Test]
+        public void LessonTextConstructorTest()
+        {
+            var inputDateString = "Data Zajęć: 2019-10-05 sobota";
+            var lessonInputString = "11:20 14:30 4h00m doc. dr John Black Physics Wyk W/2/W F Toronto Egzamin";
+            var expected = new LessonText();
+            expected.Date = "2019-10-05";
+            expected.StartTime = "11:20";
+            expected.EndTime = "14:30";
+            expected.Lecturer = "doc. dr John Black";
+            expected.LessonTitle = "Physics";
+            expected.LessonType = "Wyk";
+            expected.LessonCodeAndClassRoom = "W/2/W F Toronto";
+            expected.StartDateTime = new DateTime(2019, 10, 5, 11, 20, 0);
+            expected.EndDateTime = new DateTime(2019, 10, 5, 14, 30, 0);
+            var result = new LessonText(inputDateString, lessonInputString);
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
         public void ExtractDateTest()
         {
             var input = "Data Zajęć: 2019-10-04 piątek";
@@ -36,7 +55,7 @@ namespace CalGeneratorTests.Lesson
             var result = LessonText.ParseToDateTime(inputDate, inputHour);
             Assert.AreEqual(expected, result);
         }
-        
+
         [Test]
         public void ParseToDateTimePMTest()
         {
