@@ -42,7 +42,7 @@ namespace CalendarGenerator.Lesson
 
         internal static string ExtractDate(string input)
         {
-            var datePattern = "\\d\\d\\d\\d-\\d\\d-\\d\\d";
+            const string datePattern = "\\d\\d\\d\\d-\\d\\d-\\d\\d";
             var regex = new Regex(datePattern);
             var match = regex.Match(input);
             return match.Value;
@@ -67,8 +67,7 @@ namespace CalendarGenerator.Lesson
             var matchIndex = lessonString.IndexOf(title, StringComparison.Ordinal);
             var endOfTitle = matchIndex + title.Length;
             var titleCutOff = lessonString.Substring(endOfTitle);
-            var lecturerPattern =
-                "(\\p{L}+ \\p{L}+\\-\\p{L}+)|(\\p{L}+ \\p{L}+ \\- \\p{L}+)|(\\p{L}+ \\p{L}+)";
+            const string lecturerPattern = "(\\p{L}+ \\p{L}+\\-\\p{L}+)|(\\p{L}+ \\p{L}+ \\- \\p{L}+)|(\\p{L}+ \\p{L}+)";
             var nameRegex = new Regex(lecturerPattern);
             var nameMatch = nameRegex.Match(titleCutOff);
             return title + " " + nameMatch.Value;
@@ -124,7 +123,7 @@ namespace CalendarGenerator.Lesson
         {
             unchecked
             {
-                var hashCode = (LecturersTitleAndName != null ? LecturersTitleAndName.GetHashCode() : 0);
+                var hashCode = LecturersTitleAndName != null ? LecturersTitleAndName.GetHashCode() : 0;
                 hashCode = (hashCode * 397) ^ (LessonTitle != null ? LessonTitle.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (LessonType != null ? LessonType.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^

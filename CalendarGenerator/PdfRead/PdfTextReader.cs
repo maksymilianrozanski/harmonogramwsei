@@ -13,7 +13,7 @@ namespace CalendarGenerator.PdfRead
             return ExtractTextFromReader(reader);
         }
 
-        private string ExtractTextFromReader(PdfReader reader)
+        private static string ExtractTextFromReader(PdfReader reader)
         {
             var doc = new PdfDocument(reader);
             var strategy = new SimpleTextExtractionStrategy();
