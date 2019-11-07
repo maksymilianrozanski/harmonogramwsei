@@ -1,3 +1,4 @@
+using System;
 using CalendarGenerator.Lesson;
 using NUnit.Framework;
 
@@ -45,7 +46,7 @@ namespace CalGeneratorTests.Lesson
             var result = LessonText.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
-        
+
         [Test]
         public void ExtractLecturersTitleProfNadzwDrTest()
         {
@@ -55,7 +56,7 @@ namespace CalGeneratorTests.Lesson
             var result = LessonText.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
-        
+
         [Test]
         public void ExtractLecturersTitleProfDrHabInzTest()
         {
@@ -65,7 +66,7 @@ namespace CalGeneratorTests.Lesson
             var result = LessonText.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
-        
+
         [Test]
         public void ExtractLecturersTitleProfDrHabTest()
         {
@@ -75,7 +76,7 @@ namespace CalGeneratorTests.Lesson
             var result = LessonText.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
-        
+
         [Test]
         public void ExtractLecturersTitleMecenasTest()
         {
@@ -85,7 +86,7 @@ namespace CalGeneratorTests.Lesson
             var result = LessonText.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
-        
+
         [Test]
         public void ExtractLecturersTitleMgrInzTest()
         {
@@ -95,7 +96,7 @@ namespace CalGeneratorTests.Lesson
             var result = LessonText.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
-        
+
         [Test]
         public void ExtractLecturersTitleMgrTest()
         {
@@ -105,7 +106,7 @@ namespace CalGeneratorTests.Lesson
             var result = LessonText.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
-        
+
         [Test]
         public void ExtractLecturersTitleDrInzTest()
         {
@@ -115,7 +116,7 @@ namespace CalGeneratorTests.Lesson
             var result = LessonText.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
-        
+
         [Test]
         public void ExtractLecturersTitleDrTest()
         {
@@ -125,7 +126,7 @@ namespace CalGeneratorTests.Lesson
             var result = LessonText.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
-        
+
         [Test]
         public void ExtractLecturersTitleInzTest()
         {
@@ -135,7 +136,7 @@ namespace CalGeneratorTests.Lesson
             var result = LessonText.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
-        
+
         [Test]
         public void ExtractLecturersTitleDrHabInzTest()
         {
@@ -145,7 +146,7 @@ namespace CalGeneratorTests.Lesson
             var result = LessonText.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
-        
+
         [Test]
         public void ExtractLecturersTitleDocDrTest()
         {
@@ -155,7 +156,7 @@ namespace CalGeneratorTests.Lesson
             var result = LessonText.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
-        
+
         [Test]
         public void ExtractLecturersTitleDrHabTest()
         {
@@ -165,7 +166,7 @@ namespace CalGeneratorTests.Lesson
             var result = LessonText.ExtractLecturersTitle(lessonInput);
             Assert.AreEqual(expected, result);
         }
-        
+
         [Test]
         public void ExtractLecturersTitleMbaTest()
         {
@@ -185,7 +186,7 @@ namespace CalGeneratorTests.Lesson
             var result = LessonText.ExtractLecturer(lessonInput);
             Assert.AreEqual(expected, result);
         }
-        
+
         [Test]
         public void ExtractLecturerDoubleSurnameTest()
         {
@@ -195,7 +196,7 @@ namespace CalGeneratorTests.Lesson
             var result = LessonText.ExtractLecturer(lessonInput);
             Assert.AreEqual(expected, result);
         }
-        
+
         [Test]
         public void ExtractLecturerDoubleSurnameWithSpacesTest()
         {
@@ -203,6 +204,51 @@ namespace CalGeneratorTests.Lesson
                 "9:40 11:10 2h00m dr hab. Thomas Orange - Brown Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
             var expected = "dr hab. Thomas Orange - Brown";
             var result = LessonText.ExtractLecturer(lessonInput);
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void ExtractLessonTypeLabTest()
+        {
+            var lessonInput =
+                "9:40 11:10 2h00m dr hab. Thomas Orange - Brown Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
+            var lecturersName = "dr hab. Thomas Orange - Brown";
+            var expected = "Lab";
+            var result = LessonText.ExtractLessonType(lessonInput, lecturersName);
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void ExtractLessonTypeCwTest()
+        {
+            var lessonInput =
+                "9:40 11:10 2h00m dr hab. Thomas Orange - Brown Biology and Geography Cw lab15/2/WebN F Los Angeles Zaliczenie ocena ";
+            var lecturersName = "dr hab. Thomas Orange - Brown";
+            var expected = "Cw";
+            var result = LessonText.ExtractLessonType(lessonInput, lecturersName);
+            Assert.AreEqual(expected, result);
+        }
+
+
+        [Test]
+        public void ExtractLessonTypeKonwTest()
+        {
+            var lessonInput =
+                "9:40 11:10 2h00m dr hab. Thomas Orange - Brown Biology and Geography Konw lab15/2/WebN F Los Angeles Zaliczenie ocena ";
+            var lecturersName = "dr hab. Thomas Orange - Brown";
+            var expected = "Konw";
+            var result = LessonText.ExtractLessonType(lessonInput, lecturersName);
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void ExtractLessonTypeWykTest()
+        {
+            var lessonInput =
+                "9:40 11:10 2h00m dr hab. Thomas Orange - Brown Biology and Geography Wyk lab15/2/WebN F Los Angeles Zaliczenie ocena ";
+            var lecturersName = "dr hab. Thomas Orange - Brown";
+            var expected = "Wyk";
+            var result = LessonText.ExtractLessonType(lessonInput, lecturersName);
             Assert.AreEqual(expected, result);
         }
     }
