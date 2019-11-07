@@ -17,7 +17,7 @@ namespace CalendarGenerator.PdfParse
             List<string> stringDayItems = WordsToStringDayItems(words);
             return DayStringsToDayItems(stringDayItems);
         }
-        
+
         internal static string[] RawTextToWords(string input)
         {
             var removedBreakLines = input.Replace("\n", " ");
@@ -50,7 +50,7 @@ namespace CalendarGenerator.PdfParse
             dayItems.Add(stringBuilder.ToString().Trim());
             return dayItems;
         }
-        
+
         internal static List<Day> DayStringsToDayItems(List<string> dayStringItems)
         {
             List<Day> days = new List<Day>();
@@ -58,7 +58,7 @@ namespace CalendarGenerator.PdfParse
             {
                 var date = ExtractDateFromDayStringItem(dayStringItem);
                 var lessons = ExtractLessonStringsFromDayStringItem(dayStringItem);
-                var day = new Day (date, lessons);
+                var day = new Day(date, lessons);
                 days.Add(day);
             });
             return days;
@@ -69,7 +69,7 @@ namespace CalendarGenerator.PdfParse
             const string datePattern =
                 "Data Zajęć: \\d\\d\\d\\d-\\d\\d-\\d\\d \\b(poniedziałek|wtorek|środa|czwartek|piątek|sobota|niedziela)\\b";
             Regex regex = new Regex(datePattern);
-            Match match = regex.Match(dayStringItem);
+            Match match = regex.Match(dayStringItem.Replace("  ", " "));
             if (match.Success == false) throw new ParsingException(ParsingException.MatchingDateFailed);
             if (match.Index != 0) throw new ParsingException(ParsingException.IndexOfMatchedItemNotZero);
             return match.Value;

@@ -249,8 +249,8 @@ namespace CalGeneratorTests.Lesson
         public void ExtractLecturerSingleSurnameTest()
         {
             var lessonInput =
-                "9:40 11:10 2h00m dr hab. Thomas Orange Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
-            var expected = "dr hab. Thomas Orange";
+                "9:40 11:10 2h00m dr hab. Thomasżąęźł Oórangeąę Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
+            var expected = "dr hab. Thomasżąęźł Oórangeąę";
             var result = LessonText.ExtractLecturer(lessonInput);
             Assert.AreEqual(expected, result);
         }

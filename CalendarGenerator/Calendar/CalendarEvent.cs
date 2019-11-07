@@ -26,7 +26,7 @@ namespace CalendarGenerator.Calendar
         {
             lock (Lock)
             {
-                long currentTimeInMillis = DateTime.Now.Millisecond;
+                long currentTimeInMillis = (DateTime.UtcNow.Ticks - 621355968000000000) / 10000;
                 if (currentTimeInMillis < LastUidTime)
                 {
                     currentTimeInMillis = LastUidTime;

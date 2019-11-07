@@ -4,7 +4,7 @@ using CalendarGenerator.Calendar;
 
 namespace CalendarGenerator.Lesson
 {
-    internal class LessonText : IEquatable<LessonText>
+    internal struct LessonText : IEquatable<LessonText>
     {
         public string LecturersTitleAndName { get; set; }
         public string LessonTitle { get; set; }
@@ -27,11 +27,7 @@ namespace CalendarGenerator.Lesson
             this.EndDateTime = ParseToDateTime(date, endHour);
         }
 
-        internal LessonText()
-        {
-        }
-
-        internal CalendarEvent ToCalendarEvent()
+        internal readonly CalendarEvent ToCalendarEvent()
         {
             var calEvent = new CalendarEvent
             {
@@ -72,7 +68,7 @@ namespace CalendarGenerator.Lesson
             int endOfTitle = matchIndex + title.Length;
             var titleCutOff = lessonString.Substring(endOfTitle);
             var lecturerPattern =
-                "([a-zA-Z]+ [a-zA-Z]+\\-[a-zA-Z]+)|([a-zA-Z]+ [a-zA-Z]+ \\- [a-zA-Z]+)|([a-zA-Z]+ [a-zA-Z]+)";
+                "(\\p{L}+ \\p{L}+\\-\\p{L}+)|(\\p{L}+ \\p{L}+ \\- \\p{L}+)|(\\p{L}+ \\p{L}+)";
             Regex nameRegex = new Regex(lecturerPattern);
             Match nameMatch = nameRegex.Match(titleCutOff);
             return title + " " + nameMatch.Value;
