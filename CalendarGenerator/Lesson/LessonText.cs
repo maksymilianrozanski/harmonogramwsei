@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using CalendarGenerator.Calendar;
 
 namespace CalendarGenerator.Lesson
 {
@@ -11,6 +12,8 @@ namespace CalendarGenerator.Lesson
         public string LessonCodeAndClassRoom { get; set; }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
+
+        internal const string Location = "św. Filipa 17";
 
         public LessonText(string dateString, string lessonString)
         {
@@ -26,6 +29,19 @@ namespace CalendarGenerator.Lesson
 
         internal LessonText()
         {
+        }
+
+        internal CalendarEvent ToCalendarEvent()
+        {
+            var calEvent = new CalendarEvent
+            {
+                Start = StartDateTime,
+                End = EndDateTime,
+                Summary = LessonType + " " + LessonTitle,
+                Description = LessonCodeAndClassRoom + " " + LecturersTitleAndName,
+                Location = LessonText.Location
+            };
+            return calEvent;
         }
 
         internal static string ExtractDate(string input)

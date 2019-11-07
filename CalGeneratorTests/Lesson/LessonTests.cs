@@ -1,4 +1,5 @@
 using System;
+using CalendarGenerator.Calendar;
 using CalendarGenerator.Lesson;
 using NUnit.Framework;
 
@@ -22,6 +23,35 @@ namespace CalGeneratorTests.Lesson
             };
             var result = new LessonText(inputDateString, lessonInputString);
             Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void ToCalendarEventTest()
+        {
+            var lessonText = new LessonText
+            {
+                LecturersTitleAndName = "doc. dr John Black",
+                LessonTitle = "Physics",
+                LessonType = "Wyk",
+                LessonCodeAndClassRoom = "W/2/W F Toronto",
+                StartDateTime = new DateTime(2019, 10, 5, 11, 20, 0),
+                EndDateTime = new DateTime(2019, 10, 5, 14, 30, 0)
+            };
+
+            var expected = new CalendarEvent
+            {
+                Start = lessonText.StartDateTime,
+                End = lessonText.EndDateTime,
+                Summary = lessonText.LessonType + " " + lessonText.LessonTitle,
+                Description = lessonText.LessonCodeAndClassRoom + " " + lessonText.LecturersTitleAndName,
+                Location = LessonText.Location
+            };
+            var result = lessonText.ToCalendarEvent();
+            Assert.AreEqual(expected.Start, result.Start);
+            Assert.AreEqual(expected.End, result.End);
+            Assert.AreEqual(expected.Summary, result.Summary);
+            Assert.AreEqual(expected.Description, result.Description);
+            Assert.AreEqual(expected.Location, result.Location);
         }
 
         [Test]
