@@ -11,13 +11,15 @@ namespace CalGeneratorTests.Lesson
         {
             var inputDateString = "Data Zajęć: 2019-10-05 sobota";
             var lessonInputString = "11:20 14:30 4h00m doc. dr John Black Physics Wyk W/2/W F Toronto Egzamin";
-            var expected = new LessonText();
-            expected.LecturersTitleAndName = "doc. dr John Black";
-            expected.LessonTitle = "Physics";
-            expected.LessonType = "Wyk";
-            expected.LessonCodeAndClassRoom = "W/2/W F Toronto";
-            expected.StartDateTime = new DateTime(2019, 10, 5, 11, 20, 0);
-            expected.EndDateTime = new DateTime(2019, 10, 5, 14, 30, 0);
+            var expected = new LessonText
+            {
+                LecturersTitleAndName = "doc. dr John Black",
+                LessonTitle = "Physics",
+                LessonType = "Wyk",
+                LessonCodeAndClassRoom = "W/2/W F Toronto",
+                StartDateTime = new DateTime(2019, 10, 5, 11, 20, 0),
+                EndDateTime = new DateTime(2019, 10, 5, 14, 30, 0)
+            };
             var result = new LessonText(inputDateString, lessonInputString);
             Assert.AreEqual(expected, result);
         }
