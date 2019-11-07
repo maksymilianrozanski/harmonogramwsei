@@ -11,9 +11,7 @@ namespace CalendarGenerator.Lesson
         public string Lecturer { get; set; }
         public string LessonTitle { get; set; }
         public string LessonType { get; set; }
-        public string LessonCode { get; set; }
-        public string ClassRoom { get; set; }
-
+        public string LessonCodeAndClassRoom { get; set; }
 
         internal static string ExtractDate(string input)
         {
