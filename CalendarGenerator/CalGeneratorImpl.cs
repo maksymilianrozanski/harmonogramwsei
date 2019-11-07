@@ -17,8 +17,10 @@ namespace CalendarGenerator
 
         public string GenerateICalCalendar(FileStream pdfFileStream)
         {
-            // TODO: not implemented yet
-            return "not implemented yet";
+            var reader = new PdfTextReader();
+            var extractedText = reader.GetTextFromAllPages(pdfFileStream);
+            var iCalendarText = Calendar.Calendar.GenerateCalendar(extractedText);
+            return iCalendarText;
         }
     }
 }

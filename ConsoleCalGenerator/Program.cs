@@ -13,8 +13,11 @@ namespace ConsoleCalGenerator
             Console.WriteLine("Enter pdf file path.");
             var path = Console.ReadLine();
             var generator = new CalGeneratorImpl();
-            var calendar = generator.GenerateICalCalendar(path);
-            Console.WriteLine(calendar);
+            using var fileStream = File.OpenRead(path);
+            var calendar = generator.GenerateICalCalendar(fileStream);
+            Console.WriteLine("Enter path and filename where calendar should be saved.");
+            var destination = Console.ReadLine();
+            File.WriteAllText(destination, calendar);
         }
     }
 }
