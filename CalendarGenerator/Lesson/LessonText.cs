@@ -52,10 +52,10 @@ namespace CalendarGenerator.Lesson
             return match.Value;
         }
 
-        internal static string ExtractLessonType(string lessonString, string lecturersName)
+        internal static string ExtractLessonType(string lessonString, string lecturersTitleAndName)
         {
             const string possibleLessonTypes = " Cw | Lab | Konw | Wyk ";
-            var lecturersNameCutOff = lessonString.Split(lecturersName)[1];
+            var lecturersNameCutOff = lessonString.Split(lecturersTitleAndName)[1];
             Regex regex = new Regex(possibleLessonTypes);
             Match match = regex.Match(lecturersNameCutOff);
             return match.Value.Trim();

@@ -212,9 +212,9 @@ namespace CalGeneratorTests.Lesson
         {
             var lessonInput =
                 "9:40 11:10 2h00m dr hab. Thomas Orange - Brown Biology and Geography Lab lab15/2/WebN F Los Angeles Zaliczenie ocena ";
-            var lecturersName = "dr hab. Thomas Orange - Brown";
+            var lecturersTitleAndName = "dr hab. Thomas Orange - Brown";
             var expected = "Lab";
-            var result = LessonText.ExtractLessonType(lessonInput, lecturersName);
+            var result = LessonText.ExtractLessonType(lessonInput, lecturersTitleAndName);
             Assert.AreEqual(expected, result);
         }
 
@@ -223,9 +223,9 @@ namespace CalGeneratorTests.Lesson
         {
             var lessonInput =
                 "9:40 11:10 2h00m dr hab. Thomas Orange - Brown Biology and Geography Cw lab15/2/WebN F Los Angeles Zaliczenie ocena ";
-            var lecturersName = "dr hab. Thomas Orange - Brown";
+            var lecturersTitleAndName = "dr hab. Thomas Orange - Brown";
             var expected = "Cw";
-            var result = LessonText.ExtractLessonType(lessonInput, lecturersName);
+            var result = LessonText.ExtractLessonType(lessonInput, lecturersTitleAndName);
             Assert.AreEqual(expected, result);
         }
 
@@ -235,9 +235,9 @@ namespace CalGeneratorTests.Lesson
         {
             var lessonInput =
                 "9:40 11:10 2h00m dr hab. Thomas Orange - Brown Biology and Geography Konw lab15/2/WebN F Los Angeles Zaliczenie ocena ";
-            var lecturersName = "dr hab. Thomas Orange - Brown";
+            var lecturersTitleAndName = "dr hab. Thomas Orange - Brown";
             var expected = "Konw";
-            var result = LessonText.ExtractLessonType(lessonInput, lecturersName);
+            var result = LessonText.ExtractLessonType(lessonInput, lecturersTitleAndName);
             Assert.AreEqual(expected, result);
         }
 
@@ -246,9 +246,9 @@ namespace CalGeneratorTests.Lesson
         {
             var lessonInput =
                 "9:40 11:10 2h00m dr hab. Thomas Orange - Brown Biology and Geography Wyk lab15/2/WebN F Los Angeles Zaliczenie ocena ";
-            var lecturersName = "dr hab. Thomas Orange - Brown";
+            var lecturersTitleAndName = "dr hab. Thomas Orange - Brown";
             var expected = "Wyk";
-            var result = LessonText.ExtractLessonType(lessonInput, lecturersName);
+            var result = LessonText.ExtractLessonType(lessonInput, lecturersTitleAndName);
             Assert.AreEqual(expected, result);
         }
     }
