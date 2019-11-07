@@ -263,5 +263,29 @@ namespace CalGeneratorTests.Lesson
             var result = LessonText.ExtractLessonName(lessonInput, lecturersTitleAndName, lessonType);
             Assert.AreEqual(expected, result);
         }
+
+        [Test]
+        public void ExtractLessonCodeAndClassRoomSimpleTest()
+        {
+            var lessonInput =
+                "9:40 11:10 2h00m dr hab. Thomas Orange - Brown Biology and Geography Wyk lab15/2/WebN F Los Angeles Zaliczenie ocena ";
+            var lessonName = "Biology and Geography";
+            var lessonType = "Wyk";
+            var expected = "lab15/2/WebN F Los Angeles";
+            var result = LessonText.ExtractLessonCodeAndClassRoom(lessonInput, lessonName, lessonType);
+            Assert.AreEqual(expected, result);
+        }
+        
+        [Test]
+        public void ExtractLessonCodeAndClassRoomCodeWithSpacesTest()
+        {
+            var lessonInput =
+                "9:40 11:10 2h00m dr hab. Thomas Orange - Brown Biology and Geography Wyk 90 w lab15/2/WebN F Los Angeles Zaliczenie ocena ";
+            var lessonName = "Biology and Geography";
+            var lessonType = "Wyk";
+            var expected = "90 w lab15/2/WebN F Los Angeles";
+            var result = LessonText.ExtractLessonCodeAndClassRoom(lessonInput, lessonName, lessonType);
+            Assert.AreEqual(expected, result);
+        }
     }
 }

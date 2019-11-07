@@ -64,5 +64,15 @@ namespace CalendarGenerator.Lesson
             var lecturersNameCutOff = lessonString.Split(lecturersTitleAndName)[1];
             return lecturersNameCutOff.Split(lessonType)[0].Trim();
         }
+
+        internal static string ExtractLessonCodeAndClassRoom(string lessonString, string lessonName, string lessonType)
+        {
+            var lessonTitleCutOff = lessonString.Split(lessonName + " " + lessonType)[1];
+            const string examTypePattern = " Egzamin| Zaliczenie ocena";
+            Regex regex = new Regex(examTypePattern);
+            Match match = regex.Match(lessonTitleCutOff);
+            var examType = match.Value;
+            return lessonTitleCutOff.Split(examType)[0].Trim();
+        }
     }
 }
