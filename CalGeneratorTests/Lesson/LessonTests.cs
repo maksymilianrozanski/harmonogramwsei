@@ -12,9 +12,6 @@ namespace CalGeneratorTests.Lesson
             var inputDateString = "Data Zajęć: 2019-10-05 sobota";
             var lessonInputString = "11:20 14:30 4h00m doc. dr John Black Physics Wyk W/2/W F Toronto Egzamin";
             var expected = new LessonText();
-            expected.Date = "2019-10-05";
-            expected.StartTime = "11:20";
-            expected.EndTime = "14:30";
             expected.LecturersTitleAndName = "doc. dr John Black";
             expected.LessonTitle = "Physics";
             expected.LessonType = "Wyk";
