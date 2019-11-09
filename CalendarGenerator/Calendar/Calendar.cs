@@ -1,6 +1,8 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using CalendarGenerator.PdfParse;
 
 namespace CalendarGenerator.Calendar
@@ -49,6 +51,33 @@ namespace CalendarGenerator.Calendar
         {
             if (number >= 10) return number.ToString();
             return "0" + number;
+        }
+
+        internal static bool ValidateInput(string rawInput)
+        {
+            var lines = rawInput.Split("\n");
+            var headersExpected =
+                "Czas od Czas do Liczba godzin Prowadzący Przedmiot Forma zaj. Grupy Sala Forma zaliczenia Uwagi";
+            if (lines[0] != headersExpected) throw new ParsingException("Headers not matched:" + lines[0]);
+            if (lines[0] != headersExpected) return false;
+            var datePattern =
+                "Data Zajęć: \\d\\d\\d\\d-\\d\\d-\\d\\d \\b(poniedziałek|wtorek|środa|czwartek|piątek|sobota|niedziela)\\b";
+            const string possibleTitles =
+                "(prof. zw. dr hab.|prof. WSEI dr hab.|prof. nadzw. dr|prof. dr hab. inż.|prof. dr hab.|mecenas|mgr inż.|mgr|dr inż.|inż.|dr hab. inż.|doc. dr|dr hab.|dr|MBA)";
+            const string possibleLessonTypes = "( Cw | Lab | Konw | Wyk )";
+            //TODO: remove duplicate possible titles string
+            var lessonsPattern = "^(\\d?\\d:\\d\\d \\d?\\d:\\d\\d \\dh\\d\\dm " + possibleTitles + ".+" + 
+                                 possibleLessonTypes + ".+)+$";
+            var regexPattern = datePattern + "|" + lessonsPattern;
+            var regex = new Regex(regexPattern);
+
+            for (int i = 1; i < lines.Length; i++)
+            {
+                var match = regex.Match(lines[i]);
+                if (!match.Success) throw new ParsingException("Matching line to pattern failed:" + lines[i]);
+            }
+
+            return true;
         }
     }
 }
