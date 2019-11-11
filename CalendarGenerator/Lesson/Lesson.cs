@@ -67,7 +67,8 @@ namespace CalendarGenerator.Lesson
             var matchIndex = lessonString.IndexOf(title, StringComparison.Ordinal);
             var endOfTitle = matchIndex + title.Length;
             var titleCutOff = lessonString.Substring(endOfTitle);
-            const string lecturerPattern = "(\\p{L}+ \\p{L}+\\-\\p{L}+)|(\\p{L}+ \\p{L}+ \\- \\p{L}+)|(\\p{L}+ \\p{L}+)";
+            const string lecturerPattern =
+                "(\\p{L}+ \\p{L}+\\-\\p{L}+)|(\\p{L}+ \\p{L}+ \\- \\p{L}+)|(\\p{L}+ \\p{L}+)";
             var nameRegex = new Regex(lecturerPattern);
             var nameMatch = nameRegex.Match(titleCutOff);
             return title + " " + nameMatch.Value;
@@ -75,9 +76,7 @@ namespace CalendarGenerator.Lesson
 
         internal static string ExtractLecturersTitle(string lessonString)
         {
-            const string possibleTitles =
-                "(prof. zw. dr hab.|prof. WSEI dr hab.|prof. nadzw. dr|prof. dr hab. inż.|prof. dr hab.|mecenas|mgr inż.|mgr|dr inż.|inż.|dr hab. inż.|doc. dr|dr hab.|dr|MBA)";
-            var regex = new Regex(possibleTitles);
+            var regex = new Regex(PdfParser.PossibleTitlesPattern);
             var match = regex.Match(lessonString);
             return match.Value;
         }

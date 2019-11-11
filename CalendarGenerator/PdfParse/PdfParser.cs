@@ -14,6 +14,9 @@ namespace CalendarGenerator.PdfParse
         internal const string DatePattern = "\\d\\d\\d\\d-\\d\\d-\\d\\d";
         internal const string DayPattern = "\\b(poniedziałek|wtorek|środa|czwartek|piątek|sobota|niedziela)\\b";
         internal const string DateAndDayPatternLine = DateWordPattern + " " + DatePattern + " " + DayPattern;
+        internal const string PossibleTitlesPattern =
+            "(prof. zw. dr hab.|prof. WSEI dr hab.|prof. nadzw. dr|prof. dr hab. inż.|prof. dr hab.|mecenas|mgr inż.|mgr|dr inż.|inż.|dr hab. inż.|doc. dr|dr hab.|dr|MBA)";
+
 
         internal static List<Day> GetDaysList(string input)
         {
