@@ -40,6 +40,17 @@ namespace CalGeneratorTests.Calendar
         }
 
         [Test]
+        public void ValidateInputInvalidHourFormatTest()
+        {
+            var input = ExampleRawInput.Replace("17:30", "17:30:00");
+            var exception = Assert.Throws<ParsingException>(() =>
+            {
+                CalendarGenerator.Calendar.Calendar.ValidateInput(input);
+            });
+            Assert.AreEqual("Matching line to pattern failed:" + input.Split("\n")[2], exception.Message);
+        }
+        
+        [Test]
         public void ValidateInputInvalidLecturersTitleTest()
         {
             var input = ExampleRawInput.Replace("dr", "unknown title");
