@@ -14,9 +14,11 @@ namespace CalendarGenerator.PdfParse
         internal const string DatePattern = "\\d\\d\\d\\d-\\d\\d-\\d\\d";
         internal const string DayPattern = "\\b(poniedziałek|wtorek|środa|czwartek|piątek|sobota|niedziela)\\b";
         internal const string DateAndDayPatternLine = DateWordPattern + " " + DatePattern + " " + DayPattern;
+
         internal const string PossibleTitlesPattern =
             "(prof. zw. dr hab.|prof. WSEI dr hab.|prof. nadzw. dr|prof. dr hab. inż.|prof. dr hab.|mecenas|mgr inż.|mgr|dr inż.|inż.|dr hab. inż.|doc. dr|dr hab.|dr|MBA)";
 
+        internal const string HoursPattern = "\\d?\\d:\\d\\d \\d?\\d:\\d\\d";
 
         internal static List<Day> GetDaysList(string input)
         {
@@ -83,11 +85,9 @@ namespace CalendarGenerator.PdfParse
         internal static List<string> ExtractLessonStringsFromDayStringItem(string dayStringItem)
         {
             var lessons = new List<string>();
-
-            const string startPattern = "\\d?\\d:\\d\\d \\d?\\d:\\d\\d";
-            var regex = new Regex(startPattern);
+            var regex = new Regex(HoursPattern);
             var matches = regex.Matches(dayStringItem);
-
+            
             for (var i = 0; i < matches.Count - 1; i++)
             {
                 var start = matches[i].Index;
