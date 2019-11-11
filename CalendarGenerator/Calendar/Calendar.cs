@@ -74,7 +74,7 @@ namespace CalendarGenerator.Calendar
             for (int i = 1; i < lines.Length; i++)
             {
                 var match = regex.Match(lines[i]);
-                if (!match.Success) throw new ParsingException("Matching line to pattern failed:" + lines[i]);
+                if (!match.Success) throw new ParsingException(ParsingException.MatchingLineToPatternFailed + lines[i]);
             }
 
             return true;
