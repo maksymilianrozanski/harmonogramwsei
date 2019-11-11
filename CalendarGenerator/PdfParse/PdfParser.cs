@@ -10,9 +10,9 @@ namespace CalendarGenerator.PdfParse
 {
     internal class PdfParser
     {
-        internal const string DateWordPattern = "Data Zajęć:";
+        private const string DateWordPattern = "Data Zajęć:";
         internal const string DatePattern = "\\d\\d\\d\\d-\\d\\d-\\d\\d";
-        internal const string DayPattern = "\\b(poniedziałek|wtorek|środa|czwartek|piątek|sobota|niedziela)\\b";
+        private const string DayPattern = "\\b(poniedziałek|wtorek|środa|czwartek|piątek|sobota|niedziela)\\b";
         internal const string DateAndDayPatternLine = DateWordPattern + " " + DatePattern + " " + DayPattern;
 
         internal const string PossibleTitlesPattern =
