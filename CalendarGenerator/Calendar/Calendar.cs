@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -64,7 +63,7 @@ namespace CalendarGenerator.Calendar
             var regexPattern = PdfParser.DateAndDayPatternLine + "|" + lessonsPattern;
             var regex = new Regex(regexPattern);
 
-            for (int i = 1; i < lines.Length; i++)
+            for (var i = 1; i < lines.Length; i++)
             {
                 var match = regex.Match(lines[i]);
                 if (!match.Success) throw new ParsingException(ParsingException.MatchingLineToPatternFailed + lines[i]);

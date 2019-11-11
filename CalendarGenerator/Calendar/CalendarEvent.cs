@@ -7,11 +7,11 @@ namespace CalendarGenerator.Calendar
     {
         private static long _lastUidTime;
         private static readonly object Lock = new object();
+        public readonly string Uid;
         public string Description;
         public string Location;
         public string Summary;
         public DateTime TimeStamp;
-        public readonly string Uid;
 
         public CalendarEvent()
         {

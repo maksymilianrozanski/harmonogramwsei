@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CalendarGenerator.Lesson;
 
 namespace CalendarGenerator.PdfParse
 {
