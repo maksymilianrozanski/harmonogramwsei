@@ -38,5 +38,16 @@ namespace CalGeneratorTests.Calendar
             });
             Assert.AreEqual("Matching line to pattern failed:" + input.Split("\n")[1], exception.Message);
         }
+
+        [Test]
+        public void ValidateInputInvalidLecturersTitleTest()
+        {
+            var input = ExampleRawInput.Replace("dr", "unknown title");
+            var exception = Assert.Throws<ParsingException>(() =>
+            {
+                CalendarGenerator.Calendar.Calendar.ValidateInput(input);
+            });
+            Assert.AreEqual("Matching line to pattern failed:" + input.Split("\n")[2], exception.Message);
+        }
     }
 }
