@@ -1,6 +1,7 @@
 using System;
 using System.Text.RegularExpressions;
 using CalendarGenerator.Calendar;
+using CalendarGenerator.PdfParse;
 
 namespace CalendarGenerator.Lesson
 {
@@ -42,8 +43,7 @@ namespace CalendarGenerator.Lesson
 
         internal static string ExtractDate(string input)
         {
-            const string datePattern = "\\d\\d\\d\\d-\\d\\d-\\d\\d";
-            var regex = new Regex(datePattern);
+            var regex = new Regex(PdfParser.DatePattern);
             var match = regex.Match(input);
             return match.Value;
         }
