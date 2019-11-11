@@ -99,6 +99,7 @@ namespace CalendarGenerator.PdfParse
         internal const string MatchingDateFailed = "Matching date not successful";
         internal const string IndexOfMatchedItemNotZero = "Index of matched item not equals to 0";
         internal const string MatchingLineToPatternFailed = "Matching line to pattern failed:";
+        internal const string HeadersNotMatched = "Headers not matched:";
 
         public ParsingException(string message) : base(message)
         {

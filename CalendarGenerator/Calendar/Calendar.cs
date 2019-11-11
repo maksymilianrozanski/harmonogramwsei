@@ -58,7 +58,7 @@ namespace CalendarGenerator.Calendar
             var lines = rawInput.Split("\n");
             var headersExpected =
                 "Czas od Czas do Liczba godzin Prowadzący Przedmiot Forma zaj. Grupy Sala Forma zaliczenia Uwagi";
-            if (lines[0] != headersExpected) throw new ParsingException("Headers not matched:" + lines[0]);
+            if (lines[0] != headersExpected) throw new ParsingException(ParsingException.HeadersNotMatched + lines[0]);
             if (lines[0] != headersExpected) return false;
             var datePattern =
                 "Data Zajęć: \\d\\d\\d\\d-\\d\\d-\\d\\d \\b(poniedziałek|wtorek|środa|czwartek|piątek|sobota|niedziela)\\b";

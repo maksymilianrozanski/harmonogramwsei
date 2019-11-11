@@ -25,7 +25,7 @@ namespace CalGeneratorTests.Calendar
             {
                 CalendarGenerator.Calendar.Calendar.ValidateInput(input);
             });
-            Assert.AreEqual("Headers not matched:" + input.Split("\n")[0], exception.Message);
+            Assert.AreEqual(ParsingException.HeadersNotMatched + input.Split("\n")[0], exception.Message);
         }
 
         [Test]
