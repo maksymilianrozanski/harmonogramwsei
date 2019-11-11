@@ -32,44 +32,38 @@ namespace CalGeneratorTests.Calendar
         public void ValidateInputInvalidDateFormatTest()
         {
             var input = ExampleRawInput.Replace("2019-10-04", "2019:10:04");
-            var exception = Assert.Throws<ParsingException>(() =>
-            {
-                CalendarGenerator.Calendar.Calendar.ValidateInput(input);
-            });
-            Assert.AreEqual("Matching line to pattern failed:" + input.Split("\n")[1], exception.Message);
+            ExpectMatchingLineFailed(input, 1);
         }
 
         [Test]
         public void ValidateInputInvalidHourFormatTest()
         {
             var input = ExampleRawInput.Replace("17:30", "17:30:00");
-            var exception = Assert.Throws<ParsingException>(() =>
-            {
-                CalendarGenerator.Calendar.Calendar.ValidateInput(input);
-            });
-            Assert.AreEqual("Matching line to pattern failed:" + input.Split("\n")[2], exception.Message);
+            ExpectMatchingLineFailed(input, 2);
         }
-        
+
         [Test]
         public void ValidateInputInvalidLecturersTitleTest()
         {
             var input = ExampleRawInput.Replace("dr", "unknown title");
-            var exception = Assert.Throws<ParsingException>(() =>
-            {
-                CalendarGenerator.Calendar.Calendar.ValidateInput(input);
-            });
-            Assert.AreEqual("Matching line to pattern failed:" + input.Split("\n")[2], exception.Message);
+            ExpectMatchingLineFailed(input, 2);
         }
 
         [Test]
         public void ValidateInputInvalidLessonTypeTest()
         {
             var input = ExampleRawInput.Replace("Wyk", "unknown");
+            ExpectMatchingLineFailed(input, 2);
+        }
+
+        private void ExpectMatchingLineFailed(string input, int lineThrowingException)
+        {
             var exception = Assert.Throws<ParsingException>(() =>
             {
                 CalendarGenerator.Calendar.Calendar.ValidateInput(input);
             });
-            Assert.AreEqual("Matching line to pattern failed:" + input.Split("\n")[2], exception.Message);
+            Assert.AreEqual(ParsingException.MatchingLineToPatternFailed
+                            + input.Split("\n")[lineThrowingException], exception.Message);
         }
     }
 }
