@@ -83,9 +83,8 @@ namespace CalendarGenerator.Lesson
 
         internal static string ExtractLessonType(string lessonString, string lecturersTitleAndName)
         {
-            const string possibleLessonTypes = " Cw | Lab | Konw | Wyk ";
             var lecturersNameCutOff = lessonString.Split(lecturersTitleAndName)[1];
-            var regex = new Regex(possibleLessonTypes);
+            var regex = new Regex(PdfParser.PossibleLessonTypesPattern);
             var match = regex.Match(lecturersNameCutOff);
             return match.Value.Trim();
         }

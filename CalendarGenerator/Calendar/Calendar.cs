@@ -59,10 +59,9 @@ namespace CalendarGenerator.Calendar
             var headersExpected =
                 "Czas od Czas do Liczba godzin Prowadzący Przedmiot Forma zaj. Grupy Sala Forma zaliczenia Uwagi";
             if (lines[0] != headersExpected) throw new ParsingException(ParsingException.HeadersNotMatched + lines[0]);
-            const string possibleLessonTypes = "( Cw | Lab | Konw | Wyk )";
             //TODO: remove duplicate possible titles string
             var lessonsPattern = "^(" + PdfParser.HoursPattern + " \\dh\\d\\dm " + PdfParser.PossibleTitlesPattern +
-                                 ".+" + possibleLessonTypes + ".+)+$";
+                                 ".+(" + PdfParser.PossibleLessonTypesPattern + ").+)+$";
             var regexPattern = PdfParser.DateAndDayPatternLine + "|" + lessonsPattern;
             var regex = new Regex(regexPattern);
 

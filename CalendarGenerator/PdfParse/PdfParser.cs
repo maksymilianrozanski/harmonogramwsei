@@ -19,6 +19,7 @@ namespace CalendarGenerator.PdfParse
             "(prof. zw. dr hab.|prof. WSEI dr hab.|prof. nadzw. dr|prof. dr hab. inż.|prof. dr hab.|mecenas|mgr inż.|mgr|dr inż.|inż.|dr hab. inż.|doc. dr|dr hab.|dr|MBA)";
 
         internal const string HoursPattern = "\\d?\\d:\\d\\d \\d?\\d:\\d\\d";
+        internal const string PossibleLessonTypesPattern = " Cw | Lab | Konw | Wyk ";
 
         internal static List<Day> GetDaysList(string input)
         {
@@ -87,7 +88,7 @@ namespace CalendarGenerator.PdfParse
             var lessons = new List<string>();
             var regex = new Regex(HoursPattern);
             var matches = regex.Matches(dayStringItem);
-            
+
             for (var i = 0; i < matches.Count - 1; i++)
             {
                 var start = matches[i].Index;
