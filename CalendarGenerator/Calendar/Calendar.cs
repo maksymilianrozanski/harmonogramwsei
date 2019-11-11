@@ -10,6 +10,7 @@ namespace CalendarGenerator.Calendar
     {
         public static string GenerateCalendar(string rawInput)
         {
+            ValidateInput(rawInput);
             var daysList = PdfParser.GetDaysList(rawInput);
             var events =
                 daysList.SelectMany(day => day.GetLessonTexts()).Select(text => text.ToCalendarEvent());

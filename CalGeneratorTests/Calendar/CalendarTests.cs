@@ -23,6 +23,16 @@ namespace CalGeneratorTests.Calendar
         }
 
         [Test]
+        public void GenerateCalendarInvalidInputTest()
+        {
+            var invalidInput = ExampleRawInput.Replace("Czas od", "invalid header");
+            var exception = Assert.Throws<ParsingException>(() =>
+                CalendarGenerator.Calendar.Calendar.GenerateCalendar(invalidInput));
+            Assert.AreEqual(ParsingException.HeadersNotMatched
+                            + invalidInput.Split("\n")[0], exception.Message);
+        }
+
+        [Test]
         public void ValidateInputTest()
         {
             var input = ExampleRawInput;
