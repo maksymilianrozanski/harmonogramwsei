@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using CalendarGenerator.PdfParse;
 using NUnit.Framework;
 
 namespace CalGeneratorTests.Calendar
@@ -14,6 +15,17 @@ namespace CalGeneratorTests.Calendar
             var input = ExampleRawInput;
             var result = CalendarGenerator.Calendar.Calendar.ValidateInput(input);
             Assert.True(result);
+        }
+
+        [Test]
+        public void ValidateInputInvalidHeadersTest()
+        {
+            var input = ExampleRawInput.Replace("Czas od", "Invalid");
+            var exception = Assert.Throws<ParsingException>(() =>
+            {
+                CalendarGenerator.Calendar.Calendar.ValidateInput(input);
+            });
+            Assert.AreEqual("Headers not matched:" + input.Split("\n")[0], exception.Message);
         }
     }
 }
