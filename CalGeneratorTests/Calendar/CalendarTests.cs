@@ -27,5 +27,16 @@ namespace CalGeneratorTests.Calendar
             });
             Assert.AreEqual("Headers not matched:" + input.Split("\n")[0], exception.Message);
         }
+
+        [Test]
+        public void ValidateInputInvalidDateFormatTest()
+        {
+            var input = ExampleRawInput.Replace("2019-10-04", "2019:10:04");
+            var exception = Assert.Throws<ParsingException>(() =>
+            {
+                CalendarGenerator.Calendar.Calendar.ValidateInput(input);
+            });
+            Assert.AreEqual("Matching line to pattern failed:" + input.Split("\n")[1], exception.Message);
+        }
     }
 }
