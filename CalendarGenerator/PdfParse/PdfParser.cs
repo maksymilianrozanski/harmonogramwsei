@@ -10,6 +10,10 @@ namespace CalendarGenerator.PdfParse
 {
     internal class PdfParser
     {
+        internal const string DatePattern = "Data Zajęć: \\d\\d\\d\\d-\\d\\d-\\d\\d";
+        internal const string DayPattern = "\\b(poniedziałek|wtorek|środa|czwartek|piątek|sobota|niedziela)\\b";
+        internal const string DateAndDayPattern = DatePattern + " " + DayPattern;
+
         internal static List<Day> GetDaysList(string input)
         {
             var words = RawTextToWords(input);
@@ -65,9 +69,7 @@ namespace CalendarGenerator.PdfParse
 
         internal static string ExtractDateFromDayStringItem(string dayStringItem)
         {
-            const string datePattern =
-                "Data Zajęć: \\d\\d\\d\\d-\\d\\d-\\d\\d \\b(poniedziałek|wtorek|środa|czwartek|piątek|sobota|niedziela)\\b";
-            var regex = new Regex(datePattern);
+            var regex = new Regex(DateAndDayPattern);
             var match = regex.Match(dayStringItem.Replace("  ", " "));
             if (match.Success == false) throw new ParsingException(ParsingException.MatchingDateFailed);
             if (match.Index != 0) throw new ParsingException(ParsingException.IndexOfMatchedItemNotZero);
