@@ -15,6 +15,6 @@
                    VerticalAlignment="Bottom" />
 
         <Button x:Name="BrowseButton" Content="Choose file" HorizontalAlignment="Right"
-                VerticalAlignment="Center" Click="BrowseButton_Click" Margin="25" />
+                VerticalAlignment="Center" Click="BrowseButton_Click" Margin="25" Padding="20"/>
     </Grid>
 </Window>
