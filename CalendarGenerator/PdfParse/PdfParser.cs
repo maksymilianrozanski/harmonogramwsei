@@ -101,7 +101,7 @@ namespace CalendarGenerator.PdfParse
         }
     }
 
-    internal class ParsingException : Exception
+    public class ParsingException : Exception
     {
         internal const string MatchingDateFailed = "Matching date not successful";
         internal const string IndexOfMatchedItemNotZero = "Index of matched item not equals to 0";

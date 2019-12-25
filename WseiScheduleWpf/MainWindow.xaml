@@ -8,10 +8,13 @@
         Title="MainWindow" Height="450" Width="620">
     <Grid>
         <TextBlock Name="ManualTextBlock" TextWrapping="Wrap" Margin="25" HorizontalAlignment="Left"
-                   VerticalAlignment="Center">
+                   VerticalAlignment="Top">
             Please choose pdf file.
         </TextBlock>
+        <TextBlock Name="StatusTextBlock" TextWrapping="Wrap" Margin="25" HorizontalAlignment="Left"
+                   VerticalAlignment="Bottom" />
+
         <Button x:Name="BrowseButton" Content="Choose file" HorizontalAlignment="Right"
-                VerticalAlignment="Center" Click="BrowseButton_Click" Margin="25"/>
+                VerticalAlignment="Center" Click="BrowseButton_Click" Margin="25" />
     </Grid>
 </Window>

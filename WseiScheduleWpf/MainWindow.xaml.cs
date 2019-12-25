@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CalendarGenerator;
+using CalendarGenerator.PdfParse;
 using Path = System.Windows.Shapes.Path;
 
 namespace WseiScheduleWpf
@@ -39,19 +40,29 @@ namespace WseiScheduleWpf
             var result = openFileDlg.ShowDialog();
 
             if (result == null || result != true) return;
-            SaveICal(openFileDlg.FileName);
+            var savingResult = SaveICal(openFileDlg.FileName);
+            StatusTextBlock.Text += savingResult + "\n";
         }
 
-        private void SaveICal(string source)
+        private string SaveICal(string source)
         {
-            using FileStream fileStream = File.Open(source, FileMode.Open, FileAccess.Read);
-            var destinationDir = System.IO.Path.GetDirectoryName(source);
-            var formattedTime = DateTime.Now.ToString(CultureInfo.InvariantCulture)
-                .Replace(".", "_").Replace(":", "_")
-                .Replace(" ", "_").Replace("/", "_");
-            var generator = new CalGeneratorImpl();
-            var iCal = generator.GenerateICalCalendar(fileStream);
-            File.WriteAllText(System.IO.Path.Combine(destinationDir, "calendar" + formattedTime + ".ical"), iCal);
+            try
+            {
+                using FileStream fileStream = File.Open(source, FileMode.Open, FileAccess.Read);
+                var destinationDir = System.IO.Path.GetDirectoryName(source);
+                var formattedTime = DateTime.Now.ToString(CultureInfo.InvariantCulture)
+                    .Replace(".", "_").Replace(":", "_")
+                    .Replace(" ", "_").Replace("/", "_");
+                var generator = new CalGeneratorImpl();
+                var iCal = generator.GenerateICalCalendar(fileStream);
+                var destinationFileName = System.IO.Path.Combine(destinationDir, "calendar" + formattedTime + ".ical");
+                File.WriteAllText(destinationFileName, iCal);
+                return "Calendar saved: " + destinationFileName;
+            }
+            catch (ParsingException e)
+            {
+                return e.Message;
+            }
         }
     }
 }
