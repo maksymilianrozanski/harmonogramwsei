@@ -24,5 +24,17 @@ namespace WseiScheduleWpf
         {
             InitializeComponent();
         }
+
+        private void BrowseButton_Click(object sender, RoutedEventArgs e)
+        {
+            var openFileDlg = new Microsoft.Win32.OpenFileDialog
+            {
+                DefaultExt = ".pdf", Filter = "Pdf Files (.pdf)|*.pdf"
+            };
+
+            var result = openFileDlg.ShowDialog();
+
+            if (result == null || result != true) return;
+        }
     }
 }

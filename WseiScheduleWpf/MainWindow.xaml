@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WseiScheduleWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="620">
     <Grid>
-
+        <TextBlock Name="ManualTextBlock" TextWrapping="Wrap" Margin="25" HorizontalAlignment="Left"
+                   VerticalAlignment="Center">
+            Please choose pdf file.
+        </TextBlock>
+        <Button x:Name="BrowseButton" Content="Choose file" HorizontalAlignment="Right"
+                VerticalAlignment="Center" Click="BrowseButton_Click" Margin="25"/>
     </Grid>
 </Window>
