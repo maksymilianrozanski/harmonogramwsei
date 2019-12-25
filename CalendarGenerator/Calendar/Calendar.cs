@@ -59,17 +59,6 @@ namespace CalendarGenerator.Calendar
             var headersExpected =
                 "Czas od Czas do Liczba godzin Prowadzący Przedmiot Forma zaj. Grupy Sala Forma zaliczenia Uwagi";
             if (lines[0] != headersExpected) throw new ParsingException(ParsingException.HeadersNotMatched + lines[0]);
-            var lessonsPattern = "^(" + PdfParser.HoursPattern + " \\dh\\d\\dm " + PdfParser.PossibleTitlesPattern +
-                                 ".+(" + PdfParser.PossibleLessonTypesPattern + ").+)+$";
-            var regexPattern = PdfParser.DateAndDayPatternLine + "|" + lessonsPattern;
-            var regex = new Regex(regexPattern);
-
-            for (var i = 1; i < lines.Length; i++)
-            {
-                var match = regex.Match(lines[i]);
-                if (!match.Success) throw new ParsingException(ParsingException.MatchingLineToPatternFailed + lines[i]);
-            }
-
             return true;
         }
     }

@@ -50,35 +50,7 @@ namespace CalGeneratorTests.Calendar
             });
             Assert.AreEqual(ParsingException.HeadersNotMatched + input.Split("\n")[0], exception.Message);
         }
-
-        [Test]
-        public void ValidateInputInvalidDateFormatTest()
-        {
-            var input = ExampleRawInput.Replace("2019-10-04", "2019:10:04");
-            ExpectMatchingLineFailed(input, 1);
-        }
-
-        [Test]
-        public void ValidateInputInvalidHourFormatTest()
-        {
-            var input = ExampleRawInput.Replace("17:30", "17:30:00");
-            ExpectMatchingLineFailed(input, 2);
-        }
-
-        [Test]
-        public void ValidateInputInvalidLecturersTitleTest()
-        {
-            var input = ExampleRawInput.Replace("dr", "unknown title");
-            ExpectMatchingLineFailed(input, 2);
-        }
-
-        [Test]
-        public void ValidateInputInvalidLessonTypeTest()
-        {
-            var input = ExampleRawInput.Replace("Wyk", "unknown");
-            ExpectMatchingLineFailed(input, 2);
-        }
-
+        
         private void ExpectMatchingLineFailed(string input, int lineThrowingException)
         {
             var exception = Assert.Throws<ParsingException>(() =>
