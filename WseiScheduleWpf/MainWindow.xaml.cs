@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CalendarGenerator;
+using Path = System.Windows.Shapes.Path;
 
 namespace WseiScheduleWpf
 {
@@ -35,6 +39,19 @@ namespace WseiScheduleWpf
             var result = openFileDlg.ShowDialog();
 
             if (result == null || result != true) return;
+            SaveICal(openFileDlg.FileName);
+        }
+
+        private void SaveICal(string source)
+        {
+            using FileStream fileStream = File.Open(source, FileMode.Open, FileAccess.Read);
+            var destinationDir = System.IO.Path.GetDirectoryName(source);
+            var formattedTime = DateTime.Now.ToString(CultureInfo.InvariantCulture)
+                .Replace(".", "_").Replace(":", "_")
+                .Replace(" ", "_").Replace("/", "_");
+            var generator = new CalGeneratorImpl();
+            var iCal = generator.GenerateICalCalendar(fileStream);
+            File.WriteAllText(System.IO.Path.Combine(destinationDir, "calendar" + formattedTime + ".ical"), iCal);
         }
     }
 }
