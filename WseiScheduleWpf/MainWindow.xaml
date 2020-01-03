@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WseiScheduleWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="620">
+        Title="WSEI ical schedule generator" Height="450" Width="620">
     <Grid>
         <TextBlock Name="ManualTextBlock" TextWrapping="Wrap" Margin="25" HorizontalAlignment="Left"
                    VerticalAlignment="Top">
