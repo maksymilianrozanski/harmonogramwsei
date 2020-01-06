@@ -1,2 +1,2 @@
 # harmonogramwsei
-Aplikacja generująca plik kalendarza ical z danych skopiowanych przez użytkownika z Wirtualnego Dziekanatu.
+Aplikacja generująca plik kalendarza ical z pliku pdf pobranego z Wirtualnego Dziekanatu.
